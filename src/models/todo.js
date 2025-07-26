@@ -5,7 +5,7 @@ class Todo {
     this.id = id || crypto.randomUUID();
 
     if (title) {
-      let trimTitle = title.trim();
+      const trimTitle = title.trim();
       this.title = trimTitle.length === 0 ? "Untitled" : trimTitle;
     } else {
       this.title = "Untitled";
@@ -34,5 +34,14 @@ class Todo {
     this.checklist = Array.isArray(checklist) ? checklist : [];
     this.completed = completed !== undefined ? completed : false;
     this.createdAt = createdAt || new Date();
+  }
+
+  updateTitle(newTitle) {
+    if (newTitle) {
+      const trimNewTitle = newTitle.trim();
+      this.title = trimNewTitle.length === 0 ? "Untitled" : trimNewTitle;
+    } else {
+      this.title = "Untitled";
+    }
   }
 }
