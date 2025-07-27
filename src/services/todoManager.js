@@ -16,4 +16,20 @@ class ProjectManager {
       }
     }
   }
+
+  get projects() {return this.#projects;}
+
+  set projects(newProjects) {
+    this.#projects = [];
+
+    if (Array.isArray(newProjects)) {
+      for (let newProject of newProjects) {
+        if(newProject instanceof Project) {
+          this.#projects.push(newProject);
+        } else if (typeof newProject === "object") {
+          this.#projects.push(new Project(newProject.id, newProject.name, newProject.todos, newProject.createdAt));
+        }
+      }
+    }
+  }
 }
