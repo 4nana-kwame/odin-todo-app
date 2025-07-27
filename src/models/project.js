@@ -1,3 +1,5 @@
+import {Todo} from "./todo.js"
+
 class Project {
   #id;
   #name;
@@ -14,24 +16,19 @@ class Project {
     }
 
     this.#todos = [];
+    
     if (Array.isArray(todos)) {
       todos.forEach(value => {
-        if (typeof value === "object" && value !== null) {
-          if (
-            typeof value.id === "string" &&
-            typeof value.text === "string" &&
-            typeof value.done === "boolean"
-          ) {
-            this.#todos.push(value);
-          }
-        } else if (typeof value === "string") {
-          const trimmedValue = value.trim();
-
-          this.#todos.push({
-            id: crypto.randomUUID(),
-            text: trimmedValue.length === 0 ? "" : trimmedValue,
-            done: false
-          });
+        if (value instanceof Todo) {
+          this.#todos.push(value);
+        } else if (
+          typeof value === "object" &&
+          value.id &&
+          value.title
+        ) {
+          this.#todos.push(new Todo(value.id, value.title));
+        } else {
+          throw new Error("Projects should hold real todos, not plain strings");
         }
       });
     }
