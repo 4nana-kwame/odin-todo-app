@@ -81,4 +81,15 @@ class ProjectManager {
   findAllProjects() {
     return this.#projects.slice();
   }
+
+  renameProject(id, newName) {
+    const project = this.#projects.find(item => String(item.id) === String(id));
+
+    if (project) {
+      project.name = newName.trim();
+      return true;
+    }
+
+    return false;
+  }
 }
