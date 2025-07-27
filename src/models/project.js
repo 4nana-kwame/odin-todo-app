@@ -121,3 +121,5 @@ class Project {
     );
   }
 }
+
+export {Project};
