@@ -77,4 +77,8 @@ class ProjectManager {
     const trimmedName = name.trim();
     return this.#projects.find(item => trimmedName === item.name) || null;
   }
+
+  findAllProjects() {
+    return this.#projects.slice();
+  }
 }
