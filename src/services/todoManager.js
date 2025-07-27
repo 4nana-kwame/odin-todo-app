@@ -32,4 +32,29 @@ class ProjectManager {
       }
     }
   }
-}
+
+  addProject(project) {
+    let projectInstance;
+
+    if (project instanceof Project) {
+      projectInstance = project;
+    } else if (
+      typeof project === "object" &&
+      project.id &&
+      typeof project.name === "string" &&
+      Array.isArray(project.todos)
+    ) {
+      projectInstance = new Project(project.id, project.name, project.todos, project.createdAt);
+    } else {
+      throw new Error("Parameter must be an a plain obj with ID, name, and todos or an instance of Project");
+    }
+
+    const projectIndex = this.#projects.findIndex(item => item.id === projectInstance.id);
+
+    if (projectIndex !== -1) {
+      this.#projects[projectIndex] = projectInstance;
+    } else {
+      this.#projects.push(projectInstance);
+    }
+  }
+}  
