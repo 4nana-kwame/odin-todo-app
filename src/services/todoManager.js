@@ -59,7 +59,7 @@ class ProjectManager {
   }
 
   removeProject(id) {
-    const projectIndex = this.#projects.findIndex(item => item.id === id);
+    const projectIndex = this.#projects.findIndex(item => String(item.id) === String(id));
 
     if (projectIndex !== -1) {
       this.#projects.splice(projectIndex, 1);
@@ -67,5 +67,9 @@ class ProjectManager {
     }
 
     return false;
+  }
+
+  findProjectById(id) {
+    return this.#projects.find(item => String(item.id) === String(id)) || null;
   }
 }
