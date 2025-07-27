@@ -53,6 +53,7 @@ class Project {
   }
 
   set todos(newTodos) {
+    this.#todos = [];
     if (Array.isArray(newTodos)) {
       newTodos.forEach(value => {
         if (typeof value === "object" && value !== null) {
