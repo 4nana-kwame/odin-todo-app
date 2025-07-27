@@ -46,4 +46,36 @@ class Project {
   get todos() {return this.#todos;}
 
   get createdAt() {return this.#createdAt;}
+
+  set name(newName) {
+    if (typeof newName === "string") {
+      const trimmedNewName = newName.trim();
+
+      this.#name = trimmedNewName.length === 0 ? "" : trimmedNewName;
+    }
+  }
+
+  set todos(newTodos) {
+    if (Array.isArray(newTodos)) {
+      newTodos.forEach(value => {
+        if (typeof value === "object" && value !== null) {
+          if (
+            typeof value.id === "string" &&
+            typeof value.text === "string" &&
+            typeof value.done === "boolean"
+          ) {
+            this.#todos.push(value);
+          }
+        } else if (typeof value === "string") {
+          const trimmedValue = value.trim();
+
+          this.#todos.push({
+            id: crypto.randomUUID(),
+            text: trimmedValue.length === 0 ? "" : trimmedValue,
+            done: false
+          });
+        }
+      });
+    }
+  }
 }
