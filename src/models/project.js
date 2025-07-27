@@ -54,24 +54,19 @@ class Project {
 
   set todos(newTodos) {
     this.#todos = [];
+    
     if (Array.isArray(newTodos)) {
       newTodos.forEach(value => {
-        if (typeof value === "object" && value !== null) {
-          if (
-            typeof value.id === "string" &&
-            typeof value.text === "string" &&
-            typeof value.done === "boolean"
-          ) {
-            this.#todos.push(value);
-          }
-        } else if (typeof value === "string") {
-          const trimmedValue = value.trim();
-
-          this.#todos.push({
-            id: crypto.randomUUID(),
-            text: trimmedValue.length === 0 ? "" : trimmedValue,
-            done: false
-          });
+        if (value instanceof Todo) {
+          this.#todos.push(value);
+        } else if (
+          typeof value === "object" &&
+          value.id &&
+          value.title
+        ) {
+          this.#todos.push(new Todo(value.id, value.title));
+        } else {
+          throw new Error("Projects should hold real todos, not plain strings");
         }
       });
     }
@@ -91,11 +86,19 @@ class Project {
   }
 
   findTodoById(id) {
-    for (let i = 0; i < this.#todos.length; i++) {
-      if (id === this.#todos[i].id) {
-        return this.#todos[i];
+    for (let value of this.#todos) {
+      if (id === value.id) {
+        return value;
       } else {
         return null;
+      }
+    }
+  }
+
+  findTodoByPriority(priority) {
+    for (let value of this.#todos) {
+      if (priority === value.priority) {
+        return value;
       }
     }
   }
