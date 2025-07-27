@@ -1,4 +1,4 @@
-import {Todo} from "./todo.js"
+import { Todo } from "./todo.js"
 
 class Project {
   #id;
@@ -18,22 +18,34 @@ class Project {
     this.#todos = [];
     
     if (Array.isArray(todos)) {
-      todos.forEach(value => {
-        if (value instanceof Todo) {
+      todos.forEach(todo => this.#addTodoInstance(todo));
+    }
+
+    this.#createdAt = createdAt || new Date();
+  }
+
+  #addTodoInstance(value) {
+    if (value instanceof Todo) {
           this.#todos.push(value);
         } else if (
           typeof value === "object" &&
           value.id &&
           value.title
         ) {
-          this.#todos.push(new Todo(value.id, value.title));
+          this.#todos.push(new Todo(
+            value.id, 
+            value.title, 
+            value.description, 
+            value.dueDate,
+            value.priority,
+            value.notes,
+            value.checklist,
+            value.completed,
+            value.createdAt
+          ));
         } else {
           throw new Error("Projects should hold real todos, not plain strings");
         }
-      });
-    }
-
-    this.#createdAt = createdAt || new Date();
   }
 
   get id() {return this.#id;}
@@ -56,84 +68,56 @@ class Project {
     this.#todos = [];
     
     if (Array.isArray(newTodos)) {
-      newTodos.forEach(value => {
-        if (value instanceof Todo) {
-          this.#todos.push(value);
-        } else if (
-          typeof value === "object" &&
-          value.id &&
-          value.title
-        ) {
-          this.#todos.push(new Todo(value.id, value.title));
-        } else {
-          throw new Error("Projects should hold real todos, not plain strings");
-        }
-      });
+      newTodos.forEach(todo => this.#addTodoInstance(todo));
     }
   }
 
   removeTodo(id) {
-    let itemIndex;
-    this.#todos.forEach((value, index) => {
-      if (id === value.id) {
-        itemIndex = value[index];
-      }
-    });
+    let todoIndex = this.#todos.findIndex(todo => todo.id === id);
 
-    if (itemIndex !== -1) {
-      this.#todos.splice(itemIndex, 1);
+    if (todoIndex !== -1) {
+      this.#todos.splice(todoIndex, 1);
+      return true;
     }
+
+    return false;
   }
 
   findTodoById(id) {
-    for (let value of this.#todos) {
-      if (id === value.id) {
-        return value;
-      } else {
-        return null;
-      }
-    }
+    return this.#todos.find(todo => todo.id === id) || null;
   }
 
   findTodoByPriority(priority) {
     if (typeof priority === "string") {
       const trimPriority = priority.trim();
 
-        for (let value of this.#todos) {
-          if (trimPriority === value.priority) {
-          return value;
-        }
-      }
+      return this.#todos.filter(todo => todo.priority === trimPriority);
     }
+
+    return [];
   }
 
   findByTodosDueDate(date) {
     const dateObj = new Date(date);
-
-    for (let value of this.#todos) {
-      if (dateObj.getDate() === value.dueDate.getDate()) {
-        return value;
-      } else {
-        return null;
-      }
-    }
+    
+    return this.#todos.filter(todo => todo.dueDate && dateObj.toDateString() === todo.dueDate.toDateString());
   }
 
   toJSON() {
     return {
       id: this.#id,
       name: this.#name,
-      createdAt: this.#createdAt,
-      todos: this.#todos.map(this.#todos.toJSON()) 
+      todos: this.#todos.map(todo => todo.toJSON()),
+      createdAt: this.#createdAt
     }
   }
 
   static fromJSON(data) {
-    new Project (
+    return new Project (
       data.id,
       data.name,
-      data.createdAt,
-      data.todos.forEach(item => {Todo.fromJSON()})
+      data.todos.map(todo => Todo.fromJSON(todo)),
+      data.createdAt ? new Date(data.createdAt) : undefined
     );
   }
 }
