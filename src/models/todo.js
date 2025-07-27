@@ -163,6 +163,36 @@ class Todo {
   set completed(newCompleted) {
     this.#completed = typeof newCompleted === "boolean" ? newCompleted : false;
   }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      title: this.#title,
+      description: this.#description,
+      dueDate: this.#dueDate ? this.#dueDate.toISOString() : null,
+      priority: this.#priority,
+      notes: this.#notes,
+      checklist: this.#checklist,
+      completed: this.#completed,
+      createdAt: this.#createdAt.toISOString()
+    };
+  }
+
+  static fromJSON(data) {
+    if (typeof data === "string") {
+      new Todo (
+        data.id,
+        data.title,
+        data.description,
+        data.dueDate ? new Date(obj.dueDate) : null,
+        data.priority,
+        data.notes,
+        data.checklist,
+        data.completed,
+        data.createdAt ? new Date(obj.createdAt) : null
+      );
+    }
+  }
 }
 
 export {Todo};
