@@ -92,4 +92,10 @@ class ProjectManager {
 
     return false;
   }
+
+  toJSON() {
+    return {
+      projects: this.#projects.map(project => project.toJSON())
+    }
+  }
 }
