@@ -72,4 +72,9 @@ class ProjectManager {
   findProjectById(id) {
     return this.#projects.find(item => String(item.id) === String(id)) || null;
   }
+
+  findProjectByName(name) {
+    const trimmedName = name.trim();
+    return this.#projects.find(item => trimmedName === item.name) || null;
+  }
 }
