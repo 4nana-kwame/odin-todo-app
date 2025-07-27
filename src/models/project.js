@@ -96,9 +96,25 @@ class Project {
   }
 
   findTodoByPriority(priority) {
+    if (typeof priority === "string") {
+      const trimPriority = priority.trim();
+
+        for (let value of this.#todos) {
+          if (trimPriority === value.priority) {
+          return value;
+        }
+      }
+    }
+  }
+
+  findByTodosDueDate(date) {
+    const dateObj = new Date(date);
+
     for (let value of this.#todos) {
-      if (priority === value.priority) {
+      if (dateObj.getDate() === value.dueDate.getDate()) {
         return value;
+      } else {
+        return null;
       }
     }
   }
