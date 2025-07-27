@@ -88,5 +88,15 @@ class Project {
     if (itemIndex !== -1) {
       this.#todos.splice(itemIndex, 1);
     }
-  } 
+  }
+
+  findTodoById(id) {
+    for (let i = 0; i < this.#todos.length; i++) {
+      if (id === this.#todos[i].id) {
+        return this.#todos[i];
+      } else {
+        return null;
+      }
+    }
+  }
 }
