@@ -78,4 +78,12 @@ class Project {
       });
     }
   }
+
+  removeTodo(item) {
+    const itemIndex = this.#todos.indexOf(item);
+
+    if (itemIndex !== -1) {
+      this.#todos.splice(itemIndex, 1);
+    }
+  } 
 }
