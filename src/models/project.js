@@ -127,4 +127,13 @@ class Project {
       todos: this.#todos.map(this.#todos.toJSON()) 
     }
   }
+
+  static fromJSON(data) {
+    new Project (
+      data.id,
+      data.name,
+      data.createdAt,
+      data.todos.forEach(item => {Todo.fromJSON()})
+    );
+  }
 }
