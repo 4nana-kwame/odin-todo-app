@@ -38,4 +38,12 @@ class Project {
 
     this.#createdAt = createdAt || new Date();
   }
+
+  get id() {return this.#id;}
+
+  get name() {return this.#name;}
+
+  get todos() {return this.#todos;}
+
+  get createdAt() {return this.#createdAt;}
 }
