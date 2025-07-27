@@ -76,8 +76,13 @@ class Project {
     }
   }
 
-  removeTodo(item) {
-    const itemIndex = this.#todos.indexOf(item);
+  removeTodo(id) {
+    let itemIndex;
+    this.#todos.forEach((value, index) => {
+      if (id === value.id) {
+        itemIndex = value[index];
+      }
+    });
 
     if (itemIndex !== -1) {
       this.#todos.splice(itemIndex, 1);
