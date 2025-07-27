@@ -118,4 +118,13 @@ class Project {
       }
     }
   }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      name: this.#name,
+      createdAt: this.#createdAt,
+      todos: this.#todos.map(this.#todos.toJSON()) 
+    }
+  }
 }
