@@ -102,4 +102,9 @@ class ProjectManager {
   static fromJSON(projectData) {
     return new ProjectManager(projectData.projects.map(project => Project.fromJSON(project)));
   }
+
+  save() {
+    const saveObj = JSON.stringify(this.toJSON());
+    localStorage.setItem("projects", saveObj);
+  }
 }
