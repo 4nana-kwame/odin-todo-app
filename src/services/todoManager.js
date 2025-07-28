@@ -104,7 +104,17 @@ class ProjectManager {
   }
 
   save() {
-    const saveObj = JSON.stringify(this.toJSON());
-    localStorage.setItem("projects", saveObj);
+    const saveData = JSON.stringify(this.toJSON());
+    localStorage.setItem("projects", saveData);
+  }
+
+  static load() {
+    const loadData = localStorage.getItem("projects");
+
+    if (!loadData) return new ProjectManager();
+
+    const parseData = JSON.parse(loadData);
+
+    return ProjectManager.fromJSON(parseData);
   }
 }
