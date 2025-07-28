@@ -118,3 +118,5 @@ class ProjectManager {
     return ProjectManager.fromJSON(parseData);
   }
 }
+
+export { ProjectManager };
