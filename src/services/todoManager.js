@@ -46,7 +46,7 @@ class ProjectManager {
     ) {
       projectInstance = new Project(project.id, project.name, project.todos, project.createdAt);
     } else {
-      throw new Error("Parameter must be an a plain obj with ID, name, and todos or an instance of Project");
+      throw new Error("Parameter must be a plain obj with ID, name, and todos or an instance of Project");
     }
 
     const projectIndex = this.#projects.findIndex(item => item.id === projectInstance.id);
@@ -100,7 +100,8 @@ class ProjectManager {
   }
 
   static fromJSON(projectData) {
-    return new ProjectManager(projectData.projects.map(project => Project.fromJSON(project)));
+    const projectsArray = Array.isArray(projectData.projects) ? projectData.projects : [];
+    return new ProjectManager(projectsArray.map(project => Project.fromJSON(project)));
   }
 
   save() {
@@ -113,9 +114,9 @@ class ProjectManager {
 
     if (!loadData) return new ProjectManager();
 
-    const parseData = JSON.parse(loadData);
+    const parsedData = JSON.parse(loadData);
 
-    return ProjectManager.fromJSON(parseData);
+    return ProjectManager.fromJSON(parsedData);
   }
 }
 
