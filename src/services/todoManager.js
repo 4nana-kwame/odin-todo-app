@@ -98,4 +98,8 @@ class ProjectManager {
       projects: this.#projects.map(project => project.toJSON())
     }
   }
+
+  static fromJSON(projectData) {
+    return new ProjectManager(projectData.projects.map(project => Project.fromJSON(project)));
+  }
 }
