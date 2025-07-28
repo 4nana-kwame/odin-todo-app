@@ -9,11 +9,7 @@ class Project {
   constructor (id, name, todos, createdAt) {
     this.#id = id || crypto.randomUUID();
     
-    if (typeof name === "string") {
-      const trimmedName = name.trim();
-
-      this.#name = trimmedName.length === 0 ? "" : trimmedName;
-    }
+    this.#name = typeof name === "string" ? name.trim() : "";
 
     this.#todos = [];
     
@@ -26,42 +22,38 @@ class Project {
 
   #addTodoInstance(value) {
     if (value instanceof Todo) {
-          this.#todos.push(value);
-        } else if (
-          typeof value === "object" &&
-          value.id &&
-          value.title
-        ) {
-          this.#todos.push(new Todo(
-            value.id, 
-            value.title, 
-            value.description, 
-            value.dueDate,
-            value.priority,
-            value.notes,
-            value.checklist,
-            value.completed,
-            value.createdAt
-          ));
-        } else {
-          throw new Error("Projects should hold real todos, not plain strings");
-        }
+      this.#todos.push(value);
+    } else if (
+      typeof value === "object" &&
+      value.id &&
+      typeof value.title === "string"
+    ) {
+      this.#todos.push(new Todo(
+        value.id,
+        value.title,
+        value.description,
+        value.dueDate,
+        value.priority,
+        value.notes,
+        value.checklist,
+        value.completed,
+        value.createdAt
+      ));
+    } else {
+      throw new Error("Projects should hold valid Todo objects or Todo instances.");
+    }
   }
 
   get id() {return this.#id;}
 
   get name() {return this.#name;}
 
-  get todos() {return this.#todos;}
+  get todos() {return this.#todos.slice();}
 
   get createdAt() {return this.#createdAt;}
 
   set name(newName) {
-    if (typeof newName === "string") {
-      const trimmedNewName = newName.trim();
-
-      this.#name = trimmedNewName.length === 0 ? "" : trimmedNewName;
-    }
+    this.#name = typeof newName === "string" ? newName.trim() : "";
   }
 
   set todos(newTodos) {
@@ -72,8 +64,12 @@ class Project {
     }
   }
 
+  addTodo(todo) {
+    this.#addTodoInstance(todo);
+  }
+
   removeTodo(id) {
-    let todoIndex = this.#todos.findIndex(todo => todo.id === id);
+    let todoIndex = this.#todos.findIndex(todo => String(todo.id) === String(id));
 
     if (todoIndex !== -1) {
       this.#todos.splice(todoIndex, 1);
@@ -84,7 +80,7 @@ class Project {
   }
 
   findTodoById(id) {
-    return this.#todos.find(todo => todo.id === id) || null;
+    return this.#todos.find(todo => String(todo.id) === String(id)) || null;
   }
 
   findTodoByPriority(priority) {
@@ -122,4 +118,4 @@ class Project {
   }
 }
 
-export {Project};
+export { Project };

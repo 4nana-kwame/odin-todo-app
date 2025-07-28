@@ -85,7 +85,7 @@ class Todo {
 
   get notes() {return this.#notes;}
 
-  get checklist() {return this.#checklist}
+  get checklist() {return this.#checklist.sliice();}
 
   get completed() {return this.#completed;}
 
@@ -195,4 +195,4 @@ class Todo {
   }
 }
 
-export {Todo};
+export { Todo };
