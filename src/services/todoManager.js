@@ -17,7 +17,7 @@ class ProjectManager {
     }
   }
 
-  get projects() {return this.#projects;}
+  get projects() {return this.#projects.slice();}
 
   set projects(newProjects) {
     this.#projects = [];
@@ -83,10 +83,11 @@ class ProjectManager {
   }
 
   renameProject(id, newName) {
+    const trimmedName = newName.trim();
     const project = this.#projects.find(item => String(item.id) === String(id));
 
     if (project) {
-      project.name = newName.trim();
+      project.name = trimmedName;
       return true;
     }
 
