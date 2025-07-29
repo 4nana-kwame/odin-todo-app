@@ -111,9 +111,9 @@ class Todo {
     this.#completed = typeof newCompleted === "boolean" ? newCompleted : false;
   }
 
-  addChecklist(listItem) {
-    this.#addChecklistInstance(listItem);
-    return true;
+  addChecklist(text) {
+    const item = new ChecklistItem(text);
+    return item;
   }
 
   removeChecklist(id) {
