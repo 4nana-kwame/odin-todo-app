@@ -60,15 +60,14 @@ class Project {
   }
 
   removeTodo(id) {
-    let todoIndex = this.#todos.findIndex(todo => String(todo.id) === String(id));
+    let index = this.#todos.findIndex(item => item.id === id);
 
-    if (todoIndex !== -1) {
-      this.#todos.splice(todoIndex, 1);
-      this.markAsComplete();
-      return true;
+    if (index !== -1) {
+      const removedItems = this.#todos.splice(index, 1)[0];
+      return removedItems;
     }
 
-    return false;
+    return null;
   }
 
   findTodoById(id) {
