@@ -21,4 +21,14 @@ class CheckListItem {
   get text() { return this.#text; }
 
   get done() { return this.#done; }
+
+  set text(newText) {
+    if (typeof newText === "string") {
+      const trimmedText = newText.trim();
+
+      this.#text = trimmedText.length === 0 ? "" : trimmedText;
+    } else {
+      console.warn("ChecklistItem text must be a string");
+    }
+  }
 }
