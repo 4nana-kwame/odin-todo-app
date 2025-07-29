@@ -1,10 +1,10 @@
 class CheckListItem {
-  #id;
+  _id;
   #text;
   #done;
 
   constructor (text, done = false) {
-    this.#id = crypto.randomUUID();
+    this._id = crypto.randomUUID();
 
     if (typeof text === "string") {
       const trimmedText = text.trim();
@@ -16,7 +16,7 @@ class CheckListItem {
     this.#done = typeof done === "boolean" ? done : false;
   }
 
-  get id() { return this.#id; }
+  get id() { return this._id; }
 
   get text() { return this.#text; }
 
@@ -43,7 +43,7 @@ class CheckListItem {
 
   toJSON() {
     return {
-      id: this.#id,
+      id: this._id,
       text: this.#text,
       done: this.#done
     };
