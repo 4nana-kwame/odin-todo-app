@@ -31,4 +31,8 @@ class CheckListItem {
       console.warn("ChecklistItem text must be a string");
     }
   }
+  
+  set done(newDone) {
+    this.#done = typeof newDone === "boolean" ? newDone : false;
+  }
 }
