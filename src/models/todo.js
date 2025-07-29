@@ -1,7 +1,7 @@
-import { CheckListItem } from "./checklistitem.js";
+import { ChecklistItem } from "./checklistitem.js";
 
 class Todo {
-  #id;
+  _id;
   #title;
   #description;
   #dueDate;
@@ -11,50 +11,19 @@ class Todo {
   #completed;
   #createdAt
 
-  constructor(id, title, description = "", dueDate, priority = "low", notes = "", checklist, completed, createdAt) {
-      this.#id = id || crypto.randomUUID();
+  constructor (
+    title,
+    description = "",
+    dueDate,
+    priority = "low",
+    notes = "",
+    checklist = [],
+    completed = false,
+    createdAt = null
+  ) {
+    this._id = crypto.randomUUID();
 
-    if (title) {
-      const trimTitle = title.trim();
-
-      this.#title = trimTitle.length === 0 ? "Untitled" : trimTitle;
-    } else {
-      this.#title = "Untitled";
-    }
-
-    this.#description = typeof description === "string" ? description.trim() : "";
-
-    if (typeof dueDate === "string") {
-      const trimDueDate = dueDate.trim();
-
-      if (trimDueDate.length === 0) {
-        this.#dueDate = null;
-      } else {
-        const tempDate = new Date(trimDueDate);
-
-        this.#dueDate = !isNaN(tempDate.getTime()) ? tempDate : null;
-      }
-    } else if (Object.prototype.toString.call(dueDate) === "[object Date]") {
-      this.#dueDate = !isNaN(dueDate.getTime()) ? dueDate : null;
-    } else {
-      this.#dueDate = null;
-    }
-
-    const allowedValues = ["low", "medium", "high"];
-    const trimPriority = typeof priority === "string" ? priority.trim() : "";
-    this.#priority = allowedValues.includes(trimPriority) ? trimPriority : "low";
-
-    this.#notes = typeof notes === "string" ? notes.trim() : "";
-
-    this.#checklist = [];
-
-    if (Array.isArray(checklist)) {
-      checklist.forEach(value => this.#addChecklistInstance(value));
-    }
-
-    this.#completed = typeof completed === "boolean" ? completed : false;
-
-    this.#createdAt = createdAt || new Date();
+    this.#title = title;
   }
 
   #addChecklistInstance(listItem) {
@@ -80,7 +49,7 @@ class Todo {
     return false;
   }
 
-  get id() {return this.#id;}
+  get id() {return this._id;}
 
   get title() {return this.#title;}
 
@@ -184,7 +153,7 @@ class Todo {
 
   toJSON() {
     return {
-      id: this.#id,
+      id: this._id,
       title: this.#title,
       description: this.#description,
       dueDate: this.#dueDate ? this.#dueDate.toISOString() : null,
