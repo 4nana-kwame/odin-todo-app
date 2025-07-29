@@ -48,4 +48,18 @@ class CheckListItem {
       done: this.#done
     };
   }
+
+  static fromJSON(data) {
+    if (
+      data &&
+      typeof data.id === "string" &&
+      typeof data.text === "string" &&
+      typeof data.done === "boolean"
+    ) {
+      const item = new CheckListItem(data.text, data.done);
+      item._id = data.id;
+      return item;
+    }
+    return null;
+  }
 }
