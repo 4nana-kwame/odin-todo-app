@@ -52,8 +52,11 @@ class Project {
   }
 
   addTodo(todo) {
-    
-    this.markAsComplete();
+    if (todo instanceof Todo) {
+      this.#todos.push(todo);
+      return todo;
+    }
+    throw new Error("addTodo must expects a Todo instance");
   }
 
   removeTodo(id) {
