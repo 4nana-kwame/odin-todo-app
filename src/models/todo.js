@@ -47,30 +47,35 @@ class Todo {
     this.#checklist = [];
 
     if (Array.isArray(checklist)) {
-      checklist.forEach(value => {
-        if (typeof value === "object" && value !== null) {
-          if (
-            typeof value.id === "string" &&
-            typeof value.text === "string" &&
-            typeof value.done === "boolean"
-          ) {
-            this.#checklist.push(value);
-          }
-        } else if (typeof value === "string") {
-          const trimValue = value.trim();
-
-          this.#checklist.push({
-            id: crypto.randomUUID(),
-            text: trimValue.length === 0 ? "" : trimValue,
-            done: false
-          });
-        }
-      });
+      checklist.forEach(value => this.#addChecklistInstance(value));
     }
 
     this.#completed = typeof completed === "boolean" ? completed : false;
 
     this.#createdAt = createdAt || new Date();
+  }
+
+  #addChecklistInstance(listItem) {
+    if (typeof listItem === "string") {
+      const trimmedListItem = listItem.trim();
+      this.#checklist.push({
+        id: crypto.randomUUID(),
+        text: trimmedListItem.length === 0 ? "" : trimmedListItem,
+        done: false
+      });
+      return true;
+    } else if (typeof listItem === "object" && listItem !== null) {
+      if (
+        typeof listItem.id === "string" &&
+        typeof listItem.text === "string" &&
+        typeof listItem.done === "boolean"
+      ) {
+        this.#checklist.push(listItem);
+        return true;
+      }
+    }
+
+    return false;
   }
 
   get id() {return this.#id;}
@@ -85,7 +90,7 @@ class Todo {
 
   get notes() {return this.#notes;}
 
-  get checklist() {return this.#checklist.sliice();}
+  get checklist() {return this.#checklist.slice();}
 
   get completed() {return this.#completed;}
 
@@ -138,30 +143,27 @@ class Todo {
     this.#checklist = [];
 
     if (Array.isArray(newChecklist)) {
-      newChecklist.forEach(newValue => {
-        if (typeof newValue === "object" && newValue !== null) {
-          if (
-            typeof newValue.id === "string" &&
-            typeof newValue.text === "string" &&
-            typeof newValue.done === "boolean"
-          ) {
-            this.#checklist.push(newValue);
-          }
-        } else if (typeof newValue === "string") {
-          const trimValue = newValue.trim();
-
-          this.#checklist.push({
-            id: crypto.randomUUID(),
-            text: trimValue.length === 0 ? "" : trimValue,
-            done: false
-          });
-        }
-      });
+      newChecklist.forEach(newValue => this.#addChecklistInstance(newValue));
     }
   }
 
   set completed(newCompleted) {
     this.#completed = typeof newCompleted === "boolean" ? newCompleted : false;
+  }
+
+  addChecklist(listItem) {
+    this.#addChecklistInstance(listItem);
+    return true;
+  }
+
+  removeChecklist(id) {
+    const listItemIndex = this.#checklist.findIndex(item => String(item.id) === String(id));
+    
+    if (listItemIndex !== -1) {
+      return this.#checklist.splice(listItemIndex, 1);
+    }
+
+    return false;
   }
 
   toJSON() {
@@ -179,19 +181,17 @@ class Todo {
   }
 
   static fromJSON(data) {
-    if (typeof data === "string") {
-      new Todo (
-        data.id,
-        data.title,
-        data.description,
-        data.dueDate ? new Date(obj.dueDate) : null,
-        data.priority,
-        data.notes,
-        data.checklist,
-        data.completed,
-        data.createdAt ? new Date(obj.createdAt) : null
-      );
-    }
+    return new Todo (
+      data.id,
+      data.title,
+      data.description,
+      data.dueDate ? new Date(data.dueDate) : null,
+      data.priority,
+      data.notes,
+      data.checklist,
+      data.completed,
+      data.createdAt ? new Date(data.createdAt) : null
+    );
   }
 }
 
