@@ -1,4 +1,4 @@
-import { Project } from "./models/project.js";
+import { Project } from "../models/project.js";
 
 class ProjectManager {
   #projects
@@ -14,6 +14,10 @@ class ProjectManager {
           this.#projects.push(new Project(project.id, project.name, project.todos, project.createdAt));
         }
       }
+    }
+
+    if (this.#projects.length === 0) {
+      this.addProject(new Project(undefined, "Inbox", []));
     }
   }
 
@@ -40,7 +44,7 @@ class ProjectManager {
       projectInstance = project;
     } else if (
       typeof project === "object" &&
-      project.id &&
+      typeof project.id === "string" &&
       typeof project.name === "string" &&
       Array.isArray(project.todos)
     ) {
@@ -49,13 +53,15 @@ class ProjectManager {
       throw new Error("Parameter must be a plain obj with ID, name, and todos or an instance of Project");
     }
 
-    const projectIndex = this.#projects.findIndex(item => item.id === projectInstance.id);
+    const projectIndex = this.#projects.findIndex(item => String(item.id) === String(projectInstance.id));
 
     if (projectIndex !== -1) {
       this.#projects[projectIndex] = projectInstance;
     } else {
       this.#projects.push(projectInstance);
     }
+
+    this.save();
   }
 
   removeProject(id) {
@@ -63,6 +69,7 @@ class ProjectManager {
 
     if (projectIndex !== -1) {
       this.#projects.splice(projectIndex, 1);
+      this.save();
       return true;
     }
 
@@ -74,20 +81,21 @@ class ProjectManager {
   }
 
   findProjectByName(name) {
+    if (typeof name !== "string") return null;
+
     const trimmedName = name.trim();
     return this.#projects.find(item => trimmedName === item.name) || null;
   }
 
-  findAllProjects() {
-    return this.#projects.slice();
-  }
-
   renameProject(id, newName) {
+    if (typeof newName !== "string") return null;
+
     const trimmedName = newName.trim();
     const project = this.#projects.find(item => String(item.id) === String(id));
 
     if (project) {
       project.name = trimmedName;
+      this.save();
       return true;
     }
 
