@@ -144,7 +144,7 @@ class Todo {
       dueDate: this.#dueDate ? this.#dueDate.toISOString() : null,
       priority: this.#priority,
       notes: this.#notes,
-      checklist: this.#checklist,
+      checklist: this.#checklist.map(item => item.toJSON()),
       completed: this.#completed,
       createdAt: this.#createdAt.toISOString()
     };
