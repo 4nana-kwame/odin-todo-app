@@ -81,10 +81,9 @@ class Todo {
   }
 
   set priority(newPriority) {
-    const newAllowedValues = ["low", "medium", "high"];
-    const newTrimPriority = typeof newPriority === "string" ? newPriority.trim() : "";
-
-    this.#priority = newAllowedValues.includes(newTrimPriority) ? newTrimPriority : "low";
+    const allowedValues = ["low", "medium", "high"];
+    const trimPriority = typeof newPriority === "string" ? newPriority.trim() : "";
+    this.#priority = allowedValues.includes(trimPriority) ? trimPriority : "low";
   }
 
   set notes(newNotes) {
