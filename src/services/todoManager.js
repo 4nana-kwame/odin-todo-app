@@ -33,4 +33,18 @@ class TodoManager {
     project.markAsComplete();
     this.#projectManager.save();
   }
+
+  updateTodo(projectId, todoId, updates) {
+    const project = this.#projectManager.findProjectById(projectId);
+    if(!project) throw new Error("Project not found");
+
+    const todo = project.findTodoById(todoId);
+    if (!todo) throw new Error("Todo not found");
+
+    for (let prop in updates) {
+      if (Object.getOwnPropertyDescriptor(Object.getPrototypeOf(todo), prop)) {
+        todo[prop] = updates[prop];
+      }
+    }
+  }
 }
