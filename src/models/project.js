@@ -25,7 +25,12 @@ class Project {
   get completed() { return this.#completed; }
 
   set name(newName) {
-    this.#name = typeof newName === "string" ? newName.trim() : "";
+    if (typeof newName === "string") {
+      const trimmedName = newName.trim();
+      this.#name = trimmedName.length === 0 ? "Untitled Project" : trimmedName;
+    } else {
+      this.#name = "Untitled Project";
+    }
   }
 
   set todos(newTodos) {
