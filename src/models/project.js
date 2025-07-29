@@ -37,7 +37,17 @@ class Project {
     this.#todos = [];
     
     if (Array.isArray(newTodos)) {
-      
+      newTodos.forEach(todo => {
+        if (todo instanceof Todo) {
+          this.#todos.push(todo);
+        } else if (typeof newTodos === "object" && newTodos !== null) {
+          const trimmedTodo = todo.trim();
+          const restored = Todo.fromJSON(trimmedTodo);
+          if (restored) {
+            this.#todos.push(restored);
+          }
+        }
+      });
     }
   }
 
