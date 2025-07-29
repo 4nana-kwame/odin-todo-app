@@ -117,13 +117,13 @@ class Todo {
   }
 
   removeChecklist(id) {
-    const listItemIndex = this.#checklist.findIndex(item => String(item.id) === String(id));
+    const index = this.#checklist.findIndex(item => item.id === id);
     
-    if (listItemIndex !== -1) {
-      return this.#checklist.splice(listItemIndex, 1);
+    if (index !== -1) {
+      return this.#checklist.splice(index, 1)[0];
     }
 
-    return false;
+    return null;
   }
 
   toggleChecklistDone(id) {
