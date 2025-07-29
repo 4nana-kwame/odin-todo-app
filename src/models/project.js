@@ -7,19 +7,11 @@ class Project {
   #createdAt;
   #completed = false;
 
-  constructor (id, name, todos, createdAt) {
+  constructor (name = "No name", todos = [], createdAt = null) {
     this._id = crypto.randomUUID();
-    
-    this.#name = typeof name === "string" ? name.trim() : "";
-
-    this.#todos = [];
-    
-    if (Array.isArray(todos)) {
-      todos.forEach(todo => this.#addTodoInstance(todo));
-      this.markAsComplete();
-    }
-
-    this.#createdAt = createdAt || new Date();
+    this.name = name;
+    this.todos = todos;   
+    this.createdAt = createdAt;
   }
 
   #addTodoInstance(value) {
