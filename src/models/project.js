@@ -1,14 +1,14 @@
 import { Todo } from "./todo.js"
 
 class Project {
-  #id;
+  _id;
   #name;
   #todos;
   #createdAt;
   #completed = false;
 
   constructor (id, name, todos, createdAt) {
-    this.#id = id || crypto.randomUUID();
+    this._id = crypto.randomUUID();
     
     this.#name = typeof name === "string" ? name.trim() : "";
 
@@ -46,7 +46,7 @@ class Project {
     }
   }
 
-  get id() {return this.#id;}
+  get id() {return this._id;}
 
   get name() {return this.#name;}
 
@@ -112,7 +112,7 @@ class Project {
 
   toJSON() {
     return {
-      id: this.#id,
+      id: this._id,
       name: this.#name,
       todos: this.#todos.map(todo => todo.toJSON()),
       createdAt: this.#createdAt.toISOString(),
