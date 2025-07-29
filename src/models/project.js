@@ -5,7 +5,6 @@ class Project {
   #name;
   #todos;
   #createdAt;
-  #completed = false;
 
   constructor (name = "Untitled Project", todos = [], createdAt = null) {
     this._id = crypto.randomUUID();
@@ -21,8 +20,6 @@ class Project {
   get todos() { return this.#todos.slice(); }
 
   get createdAt() { return this.#createdAt; }
-
-  get completed() { return this.#completed; }
 
   set name(newName) {
     if (typeof newName === "string") {
