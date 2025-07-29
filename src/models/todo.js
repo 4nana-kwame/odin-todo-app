@@ -151,8 +151,9 @@ class Todo {
   }
 
   static fromJSON(data) {
-    return new Todo (
-      data.id,
+    if (!data || typeof data !== "object") return null;
+
+    const todo = new Todo (
       data.title,
       data.description,
       data.dueDate ? new Date(data.dueDate) : null,
@@ -162,6 +163,9 @@ class Todo {
       data.completed,
       data.createdAt ? new Date(data.createdAt) : null
     );
+    todo._id = data.id;
+
+    return todo;
   }
 }
 
