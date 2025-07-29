@@ -14,39 +14,15 @@ class Project {
     this.#createdAt = createdAt instanceof Date && !isNaN(createdAt.getTime()) ? createdAt : new Date();
   }
 
-  #addTodoInstance(value) {
-    if (value instanceof Todo) {
-      this.#todos.push(value);
-    } else if (
-      typeof value === "object" &&
-      value.id &&
-      typeof value.title === "string"
-    ) {
-      this.#todos.push(new Todo(
-        value.id,
-        value.title,
-        value.description,
-        value.dueDate,
-        value.priority,
-        value.notes,
-        value.checklist,
-        value.completed,
-        value.createdAt
-      ));
-    } else {
-      throw new Error("Projects should hold valid Todo objects or Todo instances.");
-    }
-  }
+  get id() { return this._id; }
 
-  get id() {return this._id;}
+  get name() { return this.#name; }
 
-  get name() {return this.#name;}
+  get todos() { return this.#todos.slice(); }
 
-  get todos() {return this.#todos.slice();}
+  get createdAt() { return this.#createdAt; }
 
-  get createdAt() {return this.#createdAt;}
-
-  get completed() {return this.#completed;}
+  get completed() { return this.#completed; }
 
   set name(newName) {
     this.#name = typeof newName === "string" ? newName.trim() : "";
@@ -56,12 +32,12 @@ class Project {
     this.#todos = [];
     
     if (Array.isArray(newTodos)) {
-      newTodos.forEach(todo => this.#addTodoInstance(todo));
+      
     }
   }
 
   addTodo(todo) {
-    this.#addTodoInstance(todo);
+    
     this.markAsComplete();
   }
 
