@@ -132,7 +132,8 @@ class Todo {
   }
 
   toggleTodoCompleted() {
-    return this.#completed = !this.#completed;
+    this.#completed = !this.#completed;
+    return this.#completed;
   }
 
   toJSON() {
