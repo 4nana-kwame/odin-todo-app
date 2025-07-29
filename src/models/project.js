@@ -79,9 +79,10 @@ class Project {
   }
 
   findTodosByDueDate(date) {
-    const dateObj = new Date(date);
-    
-    return this.#todos.filter(todo => todo.dueDate && dateObj.toDateString() === todo.dueDate.toDateString());
+    if (!(date instanceof Date) || isNaN(date.getTime())) return []; 
+    return this.#todos.filter(
+      todo => todo.dueDate && todo.dueDate.toDateString() === date.toDateString()
+    );
   }
 
   markAsComplete() {
