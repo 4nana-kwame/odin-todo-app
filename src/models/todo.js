@@ -12,9 +12,9 @@ class Todo {
   #createdAt
 
   constructor (
-    title,
+    title = "Untitled",
     description = "",
-    dueDate,
+    dueDate = null,
     priority = "low",
     notes = "",
     checklist = [],
@@ -22,8 +22,14 @@ class Todo {
     createdAt = null
   ) {
     this._id = crypto.randomUUID();
-
-    this.#title = title;
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority;
+    this.notes = notes;
+    this.checklist = checklist;
+    this.completed = completed,
+    this.createdAt = createdAt instanceof Date && !isNaN(createdAt.getTime()) ? createdAt : new Date();
   }
 
   #addChecklistInstance(listItem) {
