@@ -63,19 +63,18 @@ class Todo {
     this.#description = typeof newDescription === "string" ? newDescription.trim() : "";
   }
 
-  set dueDate(newDueDate) {
-    if (typeof newDueDate === "string") {
-      const trimNewDueDate = newDueDate.trim();
+  set dueDate(newDate) {
+    if (typeof newDate === "string") {
+      const trimmedDate = newDate.trim();
 
-      if (trimNewDueDate.length === 0) {
+      if (!trimmedDate) {
         this.#dueDate = null;
       } else {
-        const newTempDate = new Date(trimNewDueDate);
-
-        this.#dueDate = !isNaN(newTempDate.getTime()) ? newTempDate : null;
+        const parsed = new Date(trimmedDate);
+        this.#dueDate = !isNaN(parsed.getTime()) ? parsed : null;
       }
-    } else if (Object.prototype.toString.call(newDueDate) === "[object Date]") {
-      this.#dueDate = !isNaN(newDueDate.getTime()) ? newDueDate : null;
+    } else if (newDate instanceof Date && !isNaN(newDate.getTime())) {
+      this.#dueDate = newDate;
     } else {
       this.#dueDate = null;
     }
