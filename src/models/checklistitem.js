@@ -63,3 +63,5 @@ class CheckListItem {
     return null;
   }
 }
+
+export { CheckListItem };
