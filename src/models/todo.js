@@ -30,30 +30,7 @@ class Todo {
     this.checklist = checklist;
     this.completed = completed,
     this.createdAt = createdAt instanceof Date && !isNaN(createdAt.getTime()) ? createdAt : new Date();
-  }
-
-  #addChecklistInstance(listItem) {
-    if (typeof listItem === "string") {
-      const trimmedListItem = listItem.trim();
-      this.#checklist.push({
-        id: crypto.randomUUID(),
-        text: trimmedListItem.length === 0 ? "" : trimmedListItem,
-        done: false
-      });
-      return true;
-    } else if (typeof listItem === "object" && listItem !== null) {
-      if (
-        typeof listItem.id === "string" &&
-        typeof listItem.text === "string" &&
-        typeof listItem.done === "boolean"
-      ) {
-        this.#checklist.push(listItem);
-        return true;
-      }
-    }
-
-    return false;
-  }
+  } 
 
   get id() {return this._id;}
 
