@@ -35,4 +35,9 @@ class CheckListItem {
   set done(newDone) {
     this.#done = typeof newDone === "boolean" ? newDone : false;
   }
+
+  toggleDone() {
+    this.#done = !this.#done;
+    return this.#done;
+  }
 }
