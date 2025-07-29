@@ -32,29 +32,28 @@ class Todo {
     this.createdAt = createdAt instanceof Date && !isNaN(createdAt.getTime()) ? createdAt : new Date();
   } 
 
-  get id() {return this._id;}
+  get id() { return this._id; }
 
-  get title() {return this.#title;}
+  get title() { return this.#title; }
 
-  get description() {return this.#description;}
+  get description() { return this.#description; }
 
-  get dueDate() {return this.#dueDate;}
+  get dueDate() { return this.#dueDate; }
 
-  get priority() {return this.#priority;}
+  get priority() { return this.#priority; }
 
-  get notes() {return this.#notes;}
+  get notes() { return this.#notes; }
 
-  get checklist() {return this.#checklist.slice();}
+  get checklist() { return this.#checklist.slice(); }
 
-  get completed() {return this.#completed;}
+  get completed() { return this.#completed; }
 
-  get createdAt() {return this.#createdAt;}
+  get createdAt() { return this.#createdAt; }
 
   set title(newTitle) {
-    if (newTitle) {
-      const trimNewTitle = newTitle.trim();
-
-      this.#title = trimNewTitle.length === 0 ? "Untitled" : trimNewTitle;
+    if (typeof newTitle === "string") {
+      const trimmedtitle = newTitle.trim();
+      this.#title = trimmedtitle.length === 0 ? "Untitled" : trimmedtitle;
     } else {
       this.#title = "Untitled";
     }
