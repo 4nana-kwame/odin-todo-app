@@ -95,15 +95,14 @@ class Project {
   }
 
   static fromJSON(data) {
+    if (!data && typeof data !== "object") return null;
+
     const project =  new Project (
-      data.id,
       data.name,
-      data.todos.map(todo => Todo.fromJSON(todo)),
-      data.createdAt ? new Date(data.createdAt) : undefined
+      data.todos,
+      data.createdAt ? new Date(data.createdAt) : null
     );
-    if (typeof data.completed === "boolean") {
-      project.#completed = data.completed;
-    }
+    project._id = data.id;
 
     return project;
   }
