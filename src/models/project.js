@@ -75,13 +75,7 @@ class Project {
   }
 
   findTodoByPriority(priority) {
-    if (typeof priority === "string") {
-      const trimPriority = priority.trim();
-
-      return this.#todos.filter(todo => todo.priority === trimPriority);
-    }
-
-    return [];
+    return this.#todos.filter(todo => todo.priority === priority);
   }
 
   findTodosByDueDate(date) {
