@@ -40,4 +40,12 @@ class CheckListItem {
     this.#done = !this.#done;
     return this.#done;
   }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      text: this.#text,
+      done: this.#done
+    };
+  }
 }
