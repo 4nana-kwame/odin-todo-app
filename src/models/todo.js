@@ -127,13 +127,8 @@ class Todo {
   }
 
   toggleChecklistDone(id) {
-    const listItem = this.#checklist.find(item => String(item.id) === String(id));
-
-    if (listItem) {
-      return listItem.done = !listItem.done;
-    }
-
-    return false;
+    const item = this.#checklist.find(obj => obj.id === id);
+    return item ? item.toggleDone() : false;
   }
 
   toggleTodoCompleted() {
