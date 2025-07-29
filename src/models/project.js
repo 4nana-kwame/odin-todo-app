@@ -71,7 +71,7 @@ class Project {
   }
 
   findTodoById(id) {
-    return this.#todos.find(todo => String(todo.id) === String(id)) || null;
+    return this.#todos.find(item => item.id === id) || null;
   }
 
   findTodoByPriority(priority) {
