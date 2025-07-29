@@ -59,7 +59,7 @@ class Todo {
     }
   }
 
-  set description(newDescription = "") {
+  set description(newDescription) {
     this.#description = typeof newDescription === "string" ? newDescription.trim() : "";
   }
 
