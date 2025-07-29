@@ -15,4 +15,10 @@ class CheckListItem {
 
     this.#done = typeof done === "boolean" ? done : false;
   }
+
+  get id() { return this.#id; }
+
+  get text() { return this.#text; }
+
+  get done() { return this.#done; }
 }
