@@ -85,11 +85,6 @@ class Project {
     );
   }
 
-  markAsComplete() {
-    this.#completed = this.#todos.length > 0 && this.#todos.every(todo => todo.completed);
-    return this.#completed;
-  }
-
   toJSON() {
     return {
       id: this._id,
