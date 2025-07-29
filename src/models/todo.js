@@ -166,6 +166,20 @@ class Todo {
     return false;
   }
 
+  toggleChecklistDone(id) {
+    const listItem = this.#checklist.find(item => String(item.id) === String(id));
+
+    if (listItem) {
+      return listItem.done = !listItem.done;
+    }
+
+    return false;
+  }
+
+  toggleTodoCompleted() {
+    return this.#completed = !this.#completed;
+  }
+
   toJSON() {
     return {
       id: this.#id,
