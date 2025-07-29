@@ -7,7 +7,7 @@ class Project {
   #createdAt;
   #completed = false;
 
-  constructor (name = "No name", todos = [], createdAt = null) {
+  constructor (name = "Untitled Project", todos = [], createdAt = null) {
     this._id = crypto.randomUUID();
     this.name = name;
     this.todos = todos;   
