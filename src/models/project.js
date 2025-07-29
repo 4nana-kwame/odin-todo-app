@@ -5,6 +5,7 @@ class Project {
   #name;
   #todos;
   #createdAt;
+  #completed = false;
 
   constructor (id, name, todos, createdAt) {
     this.#id = id || crypto.randomUUID();
@@ -15,6 +16,7 @@ class Project {
     
     if (Array.isArray(todos)) {
       todos.forEach(todo => this.#addTodoInstance(todo));
+      this.markAsComplete();
     }
 
     this.#createdAt = createdAt || new Date();
@@ -52,6 +54,8 @@ class Project {
 
   get createdAt() {return this.#createdAt;}
 
+  get completed() {return this.#completed;}
+
   set name(newName) {
     this.#name = typeof newName === "string" ? newName.trim() : "";
   }
@@ -66,6 +70,7 @@ class Project {
 
   addTodo(todo) {
     this.#addTodoInstance(todo);
+    this.markAsComplete();
   }
 
   removeTodo(id) {
@@ -73,6 +78,7 @@ class Project {
 
     if (todoIndex !== -1) {
       this.#todos.splice(todoIndex, 1);
+      this.markAsComplete();
       return true;
     }
 
@@ -93,10 +99,15 @@ class Project {
     return [];
   }
 
-  findByTodosDueDate(date) {
+  findTodosByDueDate(date) {
     const dateObj = new Date(date);
     
     return this.#todos.filter(todo => todo.dueDate && dateObj.toDateString() === todo.dueDate.toDateString());
+  }
+
+  markAsComplete() {
+    this.#completed = this.#todos.length > 0 && this.#todos.every(todo => todo.completed);
+    return this.#completed;
   }
 
   toJSON() {
@@ -104,17 +115,23 @@ class Project {
       id: this.#id,
       name: this.#name,
       todos: this.#todos.map(todo => todo.toJSON()),
-      createdAt: this.#createdAt
+      createdAt: this.#createdAt.toISOString(),
+      completed: this.#completed
     }
   }
 
   static fromJSON(data) {
-    return new Project (
+    const project =  new Project (
       data.id,
       data.name,
       data.todos.map(todo => Todo.fromJSON(todo)),
       data.createdAt ? new Date(data.createdAt) : undefined
     );
+    if (typeof data.completed === "boolean") {
+      project.#completed = data.completed;
+    }
+
+    return project;
   }
 }
 
