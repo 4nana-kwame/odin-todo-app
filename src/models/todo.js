@@ -1,3 +1,5 @@
+import { CheckListItem } from "./checklistitem.js";
+
 class Todo {
   #id;
   #title;
