@@ -91,8 +91,7 @@ class Project {
       name: this.#name,
       todos: this.#todos.map(todo => todo.toJSON()),
       createdAt: this.#createdAt.toISOString(),
-      completed: this.#completed
-    }
+    };
   }
 
   static fromJSON(data) {
