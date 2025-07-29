@@ -11,7 +11,7 @@ class Project {
     this._id = crypto.randomUUID();
     this.name = name;
     this.todos = todos;   
-    this.createdAt = createdAt;
+    this.#createdAt = createdAt instanceof Date && !isNaN(createdAt.getTime()) ? createdAt : new Date();
   }
 
   #addTodoInstance(value) {
