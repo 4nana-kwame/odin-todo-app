@@ -94,7 +94,16 @@ class Todo {
     this.#checklist = [];
 
     if (Array.isArray(newChecklist)) {
-      newChecklist.forEach(newValue => this.#addChecklistInstance(newValue));
+      newChecklist.forEach(item => {
+        if (item instanceof ChecklistItem) {
+          this.#checklist.push(item);
+        } else if (typeof item === "object" && item !== null) {
+          const restored = ChecklistItem.fromJSON(item);
+          if (restored) this.#checklist.push(restored);
+        } else if (typeof item === "string") {
+          this.#checklist.push(new ChecklistItem(item));
+        }
+      });
     }
   }
 
