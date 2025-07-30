@@ -97,4 +97,11 @@ class TodoManager {
 
     return todo.removeChecklist(checklistId);
   }
+
+  toggleChecklistItem(todoId, checklistId) {
+    const todo = this.getTodoById(todoId);
+    if (!todo) return null;
+
+    return todo.toggleChecklistDone(checklistId)
+  }
 }
