@@ -38,4 +38,16 @@ class TodoManager {
   getTodoById(id) {
     return this.#todos.find(todo => todo.id === id) || null;
   }
+
+  updateTodo(id, data) {
+    const todo = this.#todos.find(item => item.id === id) || null;
+
+    for (let prop in data) {
+      if (prop in todo) {
+        todo[prop] = data[prop];
+      }
+    }
+
+    return todo;
+  }
 }
