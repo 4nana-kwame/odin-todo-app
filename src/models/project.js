@@ -1,19 +1,19 @@
 import { Todo } from "./todo.js"
 
 class Project {
-  _id;
+  #id;
   #name;
   #todos;
   #createdAt;
 
   constructor (name = "Untitled Project", todos = [], createdAt = null) {
-    this._id = crypto.randomUUID();
+    this.#id = crypto.randomUUID();
     this.name = name;
     this.todos = todos;   
     this.#createdAt = createdAt instanceof Date && !isNaN(createdAt.getTime()) ? createdAt : new Date();
   }
 
-  get id() { return this._id; }
+  get id() { return this.#id; }
 
   get name() { return this.#name; }
 
@@ -37,9 +37,8 @@ class Project {
       newTodos.forEach(todo => {
         if (todo instanceof Todo) {
           this.#todos.push(todo);
-        } else if (typeof newTodos === "object" && newTodos !== null) {
-          const trimmedTodo = todo.trim();
-          const restored = Todo.fromJSON(trimmedTodo);
+        } else if (typeof todo === "object" && todo !== null) {
+          const restored = Todo.fromJSON(todo);
           if (restored) {
             this.#todos.push(restored);
           }
@@ -84,7 +83,7 @@ class Project {
 
   toJSON() {
     return {
-      id: this._id,
+      id: this.#id,
       name: this.#name,
       todos: this.#todos.map(todo => todo.toJSON()),
       createdAt: this.#createdAt.toISOString(),
@@ -92,14 +91,14 @@ class Project {
   }
 
   static fromJSON(data) {
-    if (!data && typeof data !== "object") return null;
+    if (!data || typeof data !== "object") return null;
 
     const project =  new Project (
       data.name,
       data.todos,
       data.createdAt ? new Date(data.createdAt) : null
     );
-    project._id = data.id;
+    project.#id = data.id;
 
     return project;
   }
