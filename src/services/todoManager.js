@@ -90,4 +90,11 @@ class TodoManager {
     
     return todo.addChecklist(text);
   }
+
+  removeChecklistItem(todoId, checklistId) {
+    const todo = this.getTodoById(todoId);
+    if (!todo) return null;
+
+    return todo.removeChecklist(checklistId);
+  }
 }
