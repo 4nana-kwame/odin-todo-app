@@ -40,7 +40,9 @@ class TodoManager {
   }
 
   updateTodo(id, data) {
-    const todo = this.#todos.find(item => item.id === id) || null;
+    const todo = this.getTodoById(id)
+    if (!todo) return null;
+    
     const allowedProps = ["title", "description", "dueDate", "priority", "notes", "checklist", "completed"];
 
     for (let prop of allowedProps) {
