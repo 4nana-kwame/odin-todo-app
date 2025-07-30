@@ -105,3 +105,5 @@ class TodoManager {
     return todo.toggleChecklistDone(checklistId)
   }
 }
+
+export { TodoManager };
