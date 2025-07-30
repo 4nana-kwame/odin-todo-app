@@ -61,4 +61,11 @@ class TodoManager {
     
     return null;
   }
+
+  addChecklistItem(todoId, text) {
+    const todo = this.getTodoById(todoId);
+    if (!todo) return null;
+    
+    return todo.addChecklist(text);
+  }
 }
