@@ -69,6 +69,13 @@ class TodoManager {
     return this.#todos.slice();
   }
 
+  toggleTodoCompleted(id) {
+    const todo = this.#todos.find(item => item.id === id);
+    if (!todo) return null;
+    
+    return todo.toggleTodoCompleted();
+  }
+
   addChecklistItem(todoId, text) {
     const todo = this.getTodoById(todoId);
     if (!todo) return null;
