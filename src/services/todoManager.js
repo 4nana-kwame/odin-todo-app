@@ -50,4 +50,15 @@ class TodoManager {
 
     return todo;
   }
+
+  deleteTodo(id) {
+    const index = this.#todos.findIndex(todo => todo.id === id);
+
+    if (index !== -1) {
+      const removedItem = this.#todos.splice(index, 1)[0];
+      return removedItem;
+    }
+    
+    return null;
+  }
 }
