@@ -1,15 +1,15 @@
 class ChecklistItem {
-  _id;
+  #id;
   #text;
   #done;
 
   constructor (text, done = false) {
-    this._id = crypto.randomUUID();
+    this.#id = crypto.randomUUID();
     this.text = text;
     this.done = done;
   }
 
-  get id() { return this._id; }
+  get id() { return this.#id; }
 
   get text() { return this.#text; }
 
@@ -36,7 +36,7 @@ class ChecklistItem {
 
   toJSON() {
     return {
-      id: this._id,
+      id: this.#id,
       text: this.#text,
       done: this.#done
     };
@@ -50,7 +50,7 @@ class ChecklistItem {
       typeof data.done === "boolean"
     ) {
       const item = new ChecklistItem(data.text, data.done);
-      item._id = data.id;
+      item.#id = data.id;
       return item;
     }
     return null;
