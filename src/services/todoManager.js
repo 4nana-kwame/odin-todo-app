@@ -17,4 +17,21 @@ class TodoManager {
       });
     }
   }
+
+  createTodo(title, description, dueDate, priority, notes, checklist, completed, createdAt) {
+    const todo = new Todo(
+      title,
+      description,
+      dueDate,
+      priority,
+      notes,
+      checklist,
+      completed,
+      createdAt
+    );
+
+    this.#todos.push(todo);
+
+    return todo;
+  }
 }
