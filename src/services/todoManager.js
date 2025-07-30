@@ -42,7 +42,7 @@ class TodoManager {
   updateTodo(id, data) {
     const todo = this.getTodoById(id)
     if (!todo) return null;
-    
+
     const allowedProps = ["title", "description", "dueDate", "priority", "notes", "checklist", "completed"];
 
     for (let prop of allowedProps) {
@@ -63,6 +63,10 @@ class TodoManager {
     }
     
     return null;
+  }
+
+  getAllTodos() {
+    return this.#todos.slice();
   }
 
   addChecklistItem(todoId, text) {
