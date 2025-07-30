@@ -1,7 +1,7 @@
 import { ChecklistItem } from "./checklistitem.js";
 
 class Todo {
-  _id;
+  #id;
   #title;
   #description;
   #dueDate;
@@ -21,7 +21,7 @@ class Todo {
     completed = false,
     createdAt = null
   ) {
-    this._id = crypto.randomUUID();
+    this.#id = crypto.randomUUID();
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
@@ -32,7 +32,7 @@ class Todo {
     this.createdAt = createdAt instanceof Date && !isNaN(createdAt.getTime()) ? createdAt : new Date();
   } 
 
-  get id() { return this._id; }
+  get id() { return this.#id; }
 
   get title() { return this.#title; }
 
@@ -113,6 +113,7 @@ class Todo {
 
   addChecklist(text) {
     const item = new ChecklistItem(text);
+    this.#checklist.push(item);
     return item;
   }
 
@@ -138,7 +139,7 @@ class Todo {
 
   toJSON() {
     return {
-      id: this._id,
+      id: this.#id,
       title: this.#title,
       description: this.#description,
       dueDate: this.#dueDate ? this.#dueDate.toISOString() : null,
@@ -163,7 +164,7 @@ class Todo {
       data.completed,
       data.createdAt ? new Date(data.createdAt) : null
     );
-    todo._id = data.id;
+    todo.#id = data.id;
 
     return todo;
   }
