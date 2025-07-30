@@ -34,4 +34,8 @@ class TodoManager {
 
     return todo;
   }
+
+  getTodoById(id) {
+    return this.#todos.find(todo => todo.id === id) || null;
+  }
 }
