@@ -10,8 +10,8 @@ class TodoManager {
       initialTodos.forEach(todoData => {
         if (todoData instanceof Todo) {
           this.#todos.push(todoData);
-        } else if (typeof initialTodos === "object" && initialTodos !== null) {
-          const restored = Todo.fromJSON(initialTodos);
+        } else if (typeof todoData === "object" && todoData !== null) {
+          const restored = Todo.fromJSON(todoData);
           this.#todos.push(restored);
         }
       });
