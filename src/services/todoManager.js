@@ -76,6 +76,14 @@ class TodoManager {
     return todo.toggleTodoCompleted();
   }
 
+  changeTodoPriority(id, newPriority) {
+    const todo = this.getTodoById(id);
+    if (!todo) return null;
+
+    this.priority = newPriority;
+    return todo.priority;
+  }
+
   addChecklistItem(todoId, text) {
     const todo = this.getTodoById(todoId);
     if (!todo) return null;
