@@ -79,9 +79,16 @@ class ProjectManager {
     const defaultProject = this.#projects.find(item => item.name === "Inbox");
     if (defaultProject) return defaultProject;
 
-      const createDefault = new Project("Inbox", []);
-      this.#projects.push(createDefault);
-      return createDefault;
+    const createDefault = new Project("Inbox", []);
+    this.#projects.push(createDefault);
+    return createDefault;
+  }
+
+  getProjectById(id) {
+    const project = this.#projects.find(item => item.id === id);
+    if (!project) return null;
+    
+    return project;
   }
 }
 
