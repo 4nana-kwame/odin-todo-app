@@ -74,6 +74,15 @@ class ProjectManager {
     project.name = newName;
     return newName;
   }
+
+  getDefaultProject() {
+    const defaultProject = this.#projects.find(item => item.name === "Inbox");
+    if (defaultProject) return defaultProject;
+
+      const createDefault = new Project("Inbox", []);
+      this.#projects.push(createDefault);
+      return createDefault;
+  }
 }
 
 export { ProjectManager };
