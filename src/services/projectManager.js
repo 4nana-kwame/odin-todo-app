@@ -48,6 +48,8 @@ class ProjectManager {
       return null;
     }
 
+    if(!projectInstance) return null;
+    
     this.#projects.push(projectInstance);
     return projectInstance;
   }
