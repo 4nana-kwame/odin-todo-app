@@ -10,14 +10,14 @@ class ProjectManager {
       for (let project of projects) {
         if (project instanceof Project) {
           this.#projects.push(project);
-        } else if (typeof project === "object") {
-          this.#projects.push(new Project(project.id, project.name, project.todos, project.createdAt));
+        } else if (typeof project === "object" && project !== null) {
+          this.#projects.push(Project.fromJSON(project));
         }
       }
     }
 
     if (this.#projects.length === 0) {
-      this.addProject(new Project(undefined, "Inbox", []));
+      this.addProject(new Project("Inbox", []));
     }
   }
 
