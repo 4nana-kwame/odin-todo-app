@@ -91,7 +91,7 @@ class ProjectManager {
     return project;
   }
 
-  getprojectByName(name) {
+  getProjectByName(name) {
     if (typeof name !== "string") return null;
 
     const trimmedName = name.trim();
@@ -125,15 +125,13 @@ class ProjectManager {
     localStorage.setItem("projects", dataString);
   }
 
-  load() {
+  static load() {
     const retrieved = localStorage.getItem("projects");
-    
     if (!retrieved) {
       return new ProjectManager();
     }
 
     const parsed = JSON.parse(retrieved);
-    
     return ProjectManager.fromJSON(parsed);
   }
 }
