@@ -124,6 +124,18 @@ class ProjectManager {
 
     localStorage.setItem("projects", dataString);
   }
+
+  load() {
+    const retrieved = localStorage.getItem("projects");
+    
+    if (!retrieved) {
+      return new ProjectManager();
+    }
+
+    const parsed = JSON.parse(retrieved);
+    
+    return ProjectManager.fromJSON(parsed);
+  }
 }
 
 export { ProjectManager };
