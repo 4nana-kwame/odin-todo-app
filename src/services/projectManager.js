@@ -64,6 +64,16 @@ class ProjectManager {
     const removed = this.#projects.splice(index, 1)[0];
     return removed;
   }
+
+  renameProject(id, newName) {
+    const project = this.#projects.find(item => item.id === id);
+    if (!project) return null;
+
+    if (project.name === "Inbox") return null;
+
+    project.name = newName;
+    return newName;
+  }
 }
 
 export { ProjectManager };
