@@ -90,6 +90,16 @@ class ProjectManager {
     
     return project;
   }
+
+  getprojectByName(name) {
+    if (typeof name !== "string") return null;
+
+    const trimmedName = name.trim();
+    const project = this.#projects.find(item => item.name === trimmedName);
+    if(!project) return null;
+
+    return project;
+  }
 }
 
 export { ProjectManager };
