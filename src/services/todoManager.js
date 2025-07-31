@@ -46,7 +46,7 @@ class TodoManager {
     const allowedProps = ["title", "description", "dueDate", "priority", "notes", "checklist", "completed"];
 
     for (let prop of allowedProps) {
-      if (prop in todo) {
+      if (prop in data) {
         todo[prop] = data[prop];
       }
     }
@@ -80,7 +80,7 @@ class TodoManager {
     const todo = this.getTodoById(id);
     if (!todo) return null;
 
-    this.priority = newPriority;
+    todo.priority = newPriority;
     return todo.priority;
   }
 
@@ -88,21 +88,21 @@ class TodoManager {
     const todo = this.getTodoById(todoId);
     if (!todo) return null;
     
-    return todo.addChecklist(text);
+    return todo.addChecklistItem(text);
   }
 
   removeChecklistItem(todoId, checklistId) {
     const todo = this.getTodoById(todoId);
     if (!todo) return null;
 
-    return todo.removeChecklist(checklistId);
+    return todo.removeChecklistItem(checklistId);
   }
 
   toggleChecklistItem(todoId, checklistId) {
     const todo = this.getTodoById(todoId);
     if (!todo) return null;
 
-    return todo.toggleChecklistDone(checklistId)
+    return todo.toggleChecklistItemDone(checklistId)
   }
 }
 
