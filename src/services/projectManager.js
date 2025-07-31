@@ -117,6 +117,13 @@ class ProjectManager {
 
     return new ProjectManager(projectsArray)
   }
+
+  save() {
+    const data = this.toJSON();
+    const dataString = JSON.stringify(data);
+
+    localStorage.setItem("projects", dataString);
+  }
 }
 
 export { ProjectManager };
