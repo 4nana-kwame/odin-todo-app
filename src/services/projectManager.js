@@ -49,9 +49,20 @@ class ProjectManager {
     }
 
     if(!projectInstance) return null;
-    
+
     this.#projects.push(projectInstance);
     return projectInstance;
+  }
+
+  deleteProject(id) {
+    const index = this.#projects.findIndex(item => item.id === id);
+    if (index === -1) return null;
+
+    const project = this.#projects[index];
+    if (project.name === "Inbox") return null;
+
+    const removed = this.#projects.splice(index, 1)[0];
+    return removed;
   }
 }
 
