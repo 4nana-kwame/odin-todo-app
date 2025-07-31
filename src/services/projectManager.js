@@ -106,6 +106,17 @@ class ProjectManager {
       projects: this.#projects.map(project => project.toJSON())
     };
   }
+
+  static fromJSON(projectData) {
+    if (!projectData || typeof projectData !== "object") {
+      return new ProjectManager();
+    }
+    
+    const projectsArray = Array.isArray(projectData.projects) ? 
+    projectData.projects.map(project => Project.fromJSON(project)) : [];
+
+    return new ProjectManager(projectsArray)
+  }
 }
 
 export { ProjectManager };
