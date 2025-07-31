@@ -19,7 +19,11 @@ class ChecklistItem {
     if (typeof checklistText === "string") {
       const trimmedText = checklistText.trim();
 
-      this.#text = trimmedText.length === 0 ? "" : trimmedText;
+      if (trimmedText.length === 0) {
+        throw new Error("ChecklistItem text cannot be empty");
+      } else {
+        this.#text = trimmedText;
+      }
     } else {
       throw new Error("ChecklistItem text must be a string");
     }
