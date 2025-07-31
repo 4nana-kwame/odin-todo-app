@@ -32,6 +32,25 @@ class ProjectManager {
     this.#projects.push(project);
     return project;
   }
+
+  addProject(project) {    
+    let projectInstance;
+    if (project instanceof Project) {
+      projectInstance = project;
+    } else if (typeof project === "object" && project !== null) {
+      if (
+        typeof project.name === "string" &&
+        Array.isArray(project.todos)
+      ) {
+        projectInstance = Project.fromJSON(project);
+      }
+    } else {
+      return null;
+    }
+
+    this.#projects.push(projectInstance);
+    return projectInstance;
+  }
 }
 
 export { ProjectManager };
