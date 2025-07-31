@@ -26,6 +26,12 @@ class ProjectManager {
       this.#projects.push(new Project("Inbox", []));
     }
   }
+
+  createProject(name, todos, createdAt) {
+    const project  = new Project(name, todos, createdAt);
+    this.#projects.push(project);
+    return project;
+  }
 }
 
 export { ProjectManager };
