@@ -111,13 +111,13 @@ class Todo {
     this.#completed = typeof newCompleted === "boolean" ? newCompleted : false;
   }
 
-  addChecklist(text) {
+  addChecklistItem(text) {
     const item = new ChecklistItem(text);
     this.#checklist.push(item);
     return item;
   }
 
-  removeChecklist(id) {
+  removeChecklistItem(id) {
     const index = this.#checklist.findIndex(item => item.id === id);
     
     if (index !== -1) {
@@ -127,7 +127,24 @@ class Todo {
     return null;
   }
 
-  toggleChecklistDone(id) {
+  updateChecklistItemText(id, newText) {
+    const item = this.#checklist.find(obj => obj.id === id);
+    if (!item) return null;
+
+    if (typeof newText !== "string") {
+    throw new TypeError("New checklist text must be a string");
+    }
+
+    const trimmedText = newText.trim();
+    if (trimmedText.length === 0) {
+    throw new Error("Checklist item text cannot be empty");
+    }
+
+    item.text = trimmedText;
+    return trimmedText;
+  }
+
+  toggleChecklistItemDone(id) {
     const item = this.#checklist.find(obj => obj.id === id);
     return item ? item.toggleDone() : false;
   }
