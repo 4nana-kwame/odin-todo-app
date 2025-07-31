@@ -100,6 +100,12 @@ class ProjectManager {
 
     return project;
   }
+
+  toJSON() {
+    return {
+      projects: this.#projects.map(project => project.toJSON())
+    };
+  }
 }
 
 export { ProjectManager };
