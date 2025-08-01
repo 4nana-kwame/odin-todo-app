@@ -35,4 +35,14 @@ class StorageService {
       return new ProjectManager();
     }
   }
+
+  clearProjects() {
+    try {
+      localStorage.removeItem("projects");
+      return true;
+    } catch (error) {
+      console.error("Failed to clear projects", error);
+      return false;
+    }
+  }
 }
