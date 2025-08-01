@@ -45,4 +45,14 @@ class StorageService {
       return false;
     }
   }
+
+  hasSavedData() {
+    const retrieved = localStorage.getItem("projects");
+
+    if (!retrieved) {
+      return false;
+    }
+
+    return true;
+  }
 }
