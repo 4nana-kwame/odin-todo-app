@@ -21,6 +21,10 @@ class AppController {
   getProjectById(id) {
     return this.projectManager.getProjectById(id) || null;
   }
+
+  createProject(name, todos, createdAt) {
+    return this.projectManager.createProject(name, todos, createdAt);
+  }
 }
 
 export { AppController };
