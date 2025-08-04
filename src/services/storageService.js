@@ -101,4 +101,22 @@ class StorageService {
       return null;
     }
   }
+
+  importData(jsonString) {
+    if (typeof jsonString !== "string"|| jsonString.trim().length === 0) {
+      return new ProjectManager();
+    }
+
+    try {
+      const parsed = JSON.parse(jsonString);
+      if (!this.#validateProjectData(parsed)) {
+        return new ProjectManager();
+      }
+      const projectManagerInstance = ProjectManager.fromJSON(parsed);
+      return projectManagerInstance;
+    } catch (error) {
+      console.error("Failed to import data", error);
+      return new ProjectManager();
+    }
+  }
 }
