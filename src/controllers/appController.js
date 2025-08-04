@@ -29,6 +29,10 @@ class AppController {
   deleteProject(id) {
     return this.projectManager.deleteProject(id) || null;
   }
+
+  renameProject(id, name) {
+    return this.projectManager.renameProject(id, name) || null;
+  }
 }
 
 export { AppController };
