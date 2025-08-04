@@ -120,3 +120,5 @@ class StorageService {
     }
   }
 }
+
+export { StorageService };
