@@ -25,6 +25,10 @@ class AppController {
   createProject(name, todos, createdAt) {
     return this.projectManager.createProject(name, todos, createdAt);
   }
+
+  deleteProject(id) {
+    return this.projectManager.deleteProject(id) || null;
+  }
 }
 
 export { AppController };
