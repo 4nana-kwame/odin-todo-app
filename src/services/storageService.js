@@ -25,6 +25,7 @@ class StorageService {
 
     try {
       const parsed = JSON.parse(retrieved);
+      this.#validateProjectData();
       if (typeof parsed !== "object" || !Array.isArray(parsed.projects)) {
         return new ProjectManager();
       }
@@ -54,5 +55,33 @@ class StorageService {
     }
 
     return true;
+  }
+
+  #validateProjectData(data) {
+    if (typeof data === "object" && data !== null) {
+      if (!data.projects || !Array.isArray(data.projects)) {
+        return false;
+      }
+
+      for (let project of data.projects) {
+        if (!project.id || typeof project.id !== "string") return false;
+        if (!project.name || typeof project.name !== "string") return false;
+        if (!project.todos || !Array.isArray(project.todos)) return false;
+
+        for (let todo of project.todos) {
+          if (!todo.id || typeof todo.id !== "string") return false;
+          if (!todo.title || typeof todo.title !== "string") return false;
+          if (!todo.description || typeof todo.description !== "string") return false;
+          if (todo.dueDate !== null && typeof todo.dueDate !== "string") return false;
+          if (!todo.priority || typeof todo.priority !== "string") return false;
+          if (!todo.notes || typeof todo.notes !== "string") return false;
+          if (!todo.checklist || !Array.isArray(todo.checklist)) return false;
+          if (typeof todo.completed !== "boolean") return false;
+          if (!todo.createdAt || typeof todo.createdAt !== "string") return false;
+        }
+      }
+
+      return true;
+    }
   }
 }
