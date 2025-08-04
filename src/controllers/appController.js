@@ -41,6 +41,11 @@ class AppController {
   getProjectByName(name) {
     return this.projectManager.getProjectByName(name) || null;
   }
+
+  getAllTodos(projectId) {
+    const project = this.projectManager.getProjectById(projectId);
+    return project ? project.todos : null;
+  }
 }
 
 export { AppController };
