@@ -56,6 +56,13 @@ class AppController {
 
     return todo;
   }
+
+  createTodo(projectId, todo) {
+    const project = this.projectManager.getProjectById(projectId);
+    if (!project || !(todo instanceof Todo)) return null;
+
+    return project.addTodo(todo);
+  }
 }
 
 export { AppController };
