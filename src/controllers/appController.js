@@ -17,6 +17,10 @@ class AppController {
   getProjects() {
     return this.projectManager.projects;
   }
+
+  getProjectById(id) {
+    return this.projectManager.getProjectById(id) || null;
+  }
 }
 
 export { AppController };
