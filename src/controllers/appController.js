@@ -33,6 +33,10 @@ class AppController {
   renameProject(id, name) {
     return this.projectManager.renameProject(id, name) || null;
   }
+
+  getDefaultProject() {
+    return this.projectManager.getDefaultProject();
+  }
 }
 
 export { AppController };
