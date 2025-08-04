@@ -13,6 +13,10 @@ class AppController {
     const savedData = new StorageService();
     savedData.saveProjects(this.projectManager);
   }
+
+  getProjects() {
+    return this.projectManager.projects;
+  }
 }
 
 export { AppController };
