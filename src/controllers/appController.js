@@ -63,6 +63,16 @@ class AppController {
 
     return project.addTodo(todo);
   }
+
+  deleteTodo(projectId, todoId) {
+    const project = this.projectManager.getProjectById(projectId);
+    if (!project) return null;
+
+    const todo = project.removeTodo(todoId);
+    if (!todo) return null;
+
+    return todo;
+  }
 }
 
 export { AppController };
