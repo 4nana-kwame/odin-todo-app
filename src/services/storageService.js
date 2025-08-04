@@ -25,7 +25,11 @@ class StorageService {
 
     try {
       const parsed = JSON.parse(retrieved);
-      this.#validateProjectData();
+      
+      if (!this.#validateProjectData(parsed)) {
+        return new ProjectManager();
+      }
+
       if (typeof parsed !== "object" || !Array.isArray(parsed.projects)) {
         return new ProjectManager();
       }
