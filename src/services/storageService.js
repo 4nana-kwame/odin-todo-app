@@ -88,4 +88,17 @@ class StorageService {
       return true;
     }
   }
+
+  exportData(projectManager) {
+    if (!projectManager || typeof projectManager.toJSON !== "function") return false;
+
+    try {
+      const projects = projectManager.toJSON();
+      const projectsString = JSON.stringify(projects);
+      return projectsString;
+    } catch (error) {
+      console.error("Failed to export data", error);
+      return null;
+    }
+  }
 }
