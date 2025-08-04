@@ -37,6 +37,10 @@ class AppController {
   getDefaultProject() {
     return this.projectManager.getDefaultProject();
   }
+
+  getProjectByName(name) {
+    return this.projectManager.getProjectByName(name) || null;
+  }
 }
 
 export { AppController };
