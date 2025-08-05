@@ -101,6 +101,13 @@ class AppController {
 
     return todo.toggleTodoCompleted();
   }
+
+  getTodosByPriority(projectId, priority) {
+    const project = this.projectManager.getProjectById(projectId);
+    if (!project) return null;
+
+    return todos.project.findTodoByPriority(priority);
+  }
 }
 
 export { AppController };
