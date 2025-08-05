@@ -91,6 +91,16 @@ class AppController {
 
     return todo;
   }
+
+  toggleTodoCompletion(projectId, todoId) {
+    const project = this.projectManager.getProjectById(projectId);
+    if (!project) return null;
+
+    const todo = project.findTodoById(todoId);
+    if (!todo) return null;
+
+    return todo.toggleTodoCompleted();
+  }
 }
 
 export { AppController };
