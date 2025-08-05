@@ -73,6 +73,24 @@ class AppController {
 
     return todo;
   }
+
+  updateTodo(projectId, todoId, data) {
+    const project = this.projectManager.getProjectById(projectId);
+    if (!project) return null;
+
+    const todo = project.findTodoById(todoId);
+    if (!todo) return null;
+
+    const allowedValues = ["title", "description", "dueDate", "priority", "completed"];
+
+    for (let prop in data) {
+      if (allowedValues.includes(prop)) {
+        todo[prop] = data[prop];
+      }
+    }
+
+    return todo;
+  }
 }
 
 export { AppController };
