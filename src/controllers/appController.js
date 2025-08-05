@@ -106,7 +106,7 @@ class AppController {
     const project = this.projectManager.getProjectById(projectId);
     if (!project) return null;
 
-    return todos.project.findTodoByPriority(priority);
+    return project.findTodoByPriority(priority);
   }
 
   getTodosByDueDate(projectId, dueDate) {
