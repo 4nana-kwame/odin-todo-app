@@ -115,6 +115,24 @@ class AppController {
 
     return project.findTodosByDueDate(dueDate);
   }
+
+  getOverdueTodos(projectId) {
+    const project = this.projectManager.getProjectById(projectId);
+    if (!project) return null;
+
+    const currentDate = new Date();
+    const retrievedTodos = project.todos;
+
+    return retrievedTodos.filter(todo => {
+      let todoDueDate = todo.dueDate;
+
+      if (typeof todoDueDate === "string") {
+        todoDueDate = new Date(todo.dueDate);
+      }
+
+      return todoDueDate < currentDate && !todo.completed;
+    });
+  }
 }
 
 export { AppController };
