@@ -150,6 +150,13 @@ class AppController {
       status === "completed" ? todo.completed : !todo.completed
     );
   }
+
+  getAllTodos(projectId) {
+    const project = this.projectManager.getProjectById(projectId);
+    if (!project) return null;
+
+    return project.todos;
+  }
 }
 
 export { AppController };
