@@ -52,7 +52,7 @@ class Project {
       this.#todos.push(todo);
       return todo;
     }
-    throw new Error("addTodo must expects a Todo instance");
+    throw new Error("Expected instance of Todo when calling addTodo()");
   }
 
   removeTodo(id) {
