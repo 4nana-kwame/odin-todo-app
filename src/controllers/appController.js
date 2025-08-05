@@ -1,4 +1,5 @@
 import { StorageService } from "../services/storageService.js";
+import { Todo } from "../models/todo.js";
 
 class AppController {
 
@@ -23,7 +24,9 @@ class AppController {
   }
 
   createProject(name, todos, createdAt) {
-    return this.projectManager.createProject(name, todos, createdAt);
+    const project = this.projectManager.createProject(name, todos, createdAt);
+    this.save();
+    return project;
   }
 
   deleteProject(id) {
