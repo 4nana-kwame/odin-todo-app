@@ -133,6 +133,15 @@ class AppController {
       return todoDueDate < currentDate && !todo.completed;
     });
   }
+
+  getCompletedTodos(projectId) {
+    const project = this.projectManager.getProjectById(projectId);
+    if (!project) return null;
+
+    const retrievedTodos = project.todos;
+
+    return retrievedTodos.filter(todo => todo.completed);
+  }
 }
 
 export { AppController };
