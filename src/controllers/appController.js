@@ -121,9 +121,8 @@ class AppController {
     if (!project) return null;
 
     const currentDate = new Date();
-    const retrievedTodos = project.todos;
 
-    return retrievedTodos.filter(todo => {
+    return project.todos.filter(todo => {
       let todoDueDate = todo.dueDate;
 
       if (typeof todoDueDate === "string") {
@@ -138,9 +137,18 @@ class AppController {
     const project = this.projectManager.getProjectById(projectId);
     if (!project) return null;
 
-    const retrievedTodos = project.todos;
+    return project.todos.filter(todo => todo.completed);
+  }
 
-    return retrievedTodos.filter(todo => todo.completed);
+  getTodosByStatus(projectId, status) {
+    const project = this.projectManager.getProjectById(projectId);
+    if (!project) return null;
+    
+    if (status !== "completed" && status !== "incomplete") return null;
+
+    return project.todos.filter(todo => 
+      status === "completed" ? todo.completed : !todo.completed
+    );
   }
 }
 
