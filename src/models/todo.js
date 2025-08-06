@@ -66,4 +66,21 @@ class Todo {
 
     return this.#description = trimmedDescription.length === 0 ? "" : trimmedDescription;
   }
+
+  set dueDate(dateValue) {
+    if (typeof dateValue === "string") {
+      const trimDate = dateValue.trim();
+      const dateObject = new Date(trimDate);
+
+      if (!dateObject) {
+        throw new Error("Invalid date instance");
+      }
+
+      return this.#dueDate = dateObject;
+    } else if (dateValue instanceof Date) {
+      return this.#dueDate = dateValue;
+    } else {
+      throw new Error("Invalid date instance");
+    }
+  }
 }
