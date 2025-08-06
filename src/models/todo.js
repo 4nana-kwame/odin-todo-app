@@ -101,4 +101,14 @@ class Todo {
       }
     }
   }
+
+  set notes(notesValue) {
+    if (typeof notesValue !== "string") {
+      throw new Error("Notes must be a string");
+    }
+
+    const trimmedNotes = notesValue.trim();
+
+    return this.#notes = trimmedNotes.length === 0 ? "" : trimmedNotes;
+  }
 }
