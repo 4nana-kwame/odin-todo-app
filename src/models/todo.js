@@ -83,4 +83,22 @@ class Todo {
       throw new Error("Invalid date instance");
     }
   }
+
+  set priority(priorityValue) {
+    const allowedValues = ["low", "medium", "high"];
+
+    if (typeof priorityValue !== "string") {
+      throw new Error("Priority must be a string");
+    }
+
+    const trimmedPriority = priorityValue.trim().toLowerCase();
+
+    for (let value of allowedValues) {
+      if (value === trimmedPriority) {
+        return this.#priority = trimmedPriority;
+      } else {
+        throw new Error("Priority must be low, medium or high");
+      }
+    }
+  }
 }
