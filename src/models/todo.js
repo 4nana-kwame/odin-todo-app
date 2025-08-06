@@ -46,4 +46,14 @@ class Todo {
   get completed() { return this.#completed; }
 
   get createdAt() { return this.#createdAt; }
+
+  set title(titleValue) {
+    if (typeof titleValue !== "string") {
+      throw new Error("Todo title must be a string");
+    }
+
+    const trimmedTitle = titleValue.trim();
+
+    return this.#title = trimmedTitle.length === 0 ? "New Todo" : trimmedTitle;
+  }
 }
