@@ -134,6 +134,20 @@ class Todo {
 
     this.#completed = completedValue;
   }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      title: this.title,
+      description: this.description,
+      dueDate: this.dueDate.toISOString(),
+      priority: this.priority,
+      notes: this.notes,
+      checklist: this.checklist.map(item => item.toJSON()),
+      completed: this.completed,
+      createdAt: this.#createdAt.toISOString()
+    };
+  }
 }
 
 export { Todo };
