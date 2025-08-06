@@ -111,4 +111,18 @@ class Todo {
 
     return this.#notes = trimmedNotes.length === 0 ? "" : trimmedNotes;
   }
+
+  set checklist(checklistValue) {
+    this.#checklist = [];
+
+    if (typeof checklistValue !== "string") {
+      throw new Error("Checklist item must be a string");
+    }
+
+    const trimmedChecklist = checklistValue.trim();
+    
+    return this.#checklist.push(
+      trimmedChecklist.length === 0 ? "New Checklist" : trimmedChecklist
+    );
+  }
 }
