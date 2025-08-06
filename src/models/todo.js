@@ -134,6 +134,15 @@ class Todo {
 
     this.#completed = completedValue;
   }
+
+  addChecklistItem(item) {
+    const stringItem = String(item);
+    const trimmed = stringItem.trim();
+
+    if (trimmed.length === 0) return null;
+
+    return this.#checklist.push(trimmed);
+  }
 }
 
 export { Todo };
