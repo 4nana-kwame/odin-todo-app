@@ -56,4 +56,14 @@ class Todo {
 
     return this.#title = trimmedTitle.length === 0 ? "New Todo" : trimmedTitle;
   }
+
+  set description(descriptionValue) {
+    if (typeof descriptionValue !== "string") {
+      throw new Error("Todo description must be a string");
+    }
+
+    const trimmedDescription = descriptionValue.trim();
+
+    return this.#description = trimmedDescription.length === 0 ? "" : trimmedDescription;
+  }
 }
