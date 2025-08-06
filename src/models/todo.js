@@ -134,3 +134,5 @@ class Todo {
     return this.#completed = completedValue;
   }
 }
+
+export { Todo };
