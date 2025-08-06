@@ -54,7 +54,7 @@ class Todo {
 
     const trimmedTitle = titleValue.trim();
 
-    return this.#title = trimmedTitle.length === 0 ? "New Todo" : trimmedTitle;
+    this.#title = trimmedTitle.length === 0 ? "New Todo" : trimmedTitle;
   }
 
   set description(descriptionValue) {
@@ -64,24 +64,24 @@ class Todo {
 
     const trimmedDescription = descriptionValue.trim();
 
-    return this.#description = trimmedDescription.length === 0 ? "" : trimmedDescription;
+    this.#description = trimmedDescription.length === 0 ? "" : trimmedDescription;
   }
 
   set dueDate(dateValue) {
     if (typeof dateValue === "string") {
-      const trimDate = dateValue.trim();
-      const dateObject = new Date(trimDate);
+      const trimmedDate = dateValue.trim();
+      const dateObject = new Date(trimmedDate);
 
-      if (!dateObject) {
-        throw new Error("Invalid date instance");
+      if (!isNaN(dateObject.getTime())) {
+        this.#dueDate = dateObject;
+        return;
       }
-
-      return this.#dueDate = dateObject;
-    } else if (dateValue instanceof Date) {
-      return this.#dueDate = dateValue;
-    } else {
-      throw new Error("Invalid date instance");
-    }
+    } else if (dateValue instanceof Date && !isNaN(dateValue.getTime())) {
+      this.#dueDate = dateValue;
+      return;
+    } 
+    
+    throw new Error("Invalid Date instance");
   }
 
   set priority(priorityValue) {
@@ -94,12 +94,13 @@ class Todo {
     const trimmedPriority = priorityValue.trim().toLowerCase();
 
     for (let value of allowedValues) {
-      if (value === trimmedPriority) {
-        return this.#priority = trimmedPriority;
-      } else {
-        throw new Error("Priority must be low, medium or high");
+      if (allowedValues.includes(trimmedPriority)) {
+        this.#priority = trimmedPriority;
+        return;
       }
     }
+
+    throw new Error("Priority must be low, medium or high");
   }
 
   set notes(notesValue) {
@@ -109,21 +110,21 @@ class Todo {
 
     const trimmedNotes = notesValue.trim();
 
-    return this.#notes = trimmedNotes.length === 0 ? "" : trimmedNotes;
+    this.#notes = trimmedNotes.length === 0 ? "" : trimmedNotes;
   }
 
-  set checklist(checklistValue) {
+  set checklist(checklistValues) {
     this.#checklist = [];
 
-    if (typeof checklistValue !== "string") {
-      throw new Error("Checklist item must be a string");
+    if (Array.isArray(checklistValues)) {
+      for (let value of checklistValues) {
+        const stringValue = String(value);
+        const trimmed = stringValue.trim();
+        this.#checklist.push(trimmed);
+      }
+    } else {
+      throw new Error("Checklist must be an array");
     }
-
-    const trimmedChecklist = checklistValue.trim();
-    
-    return this.#checklist.push(
-      trimmedChecklist.length === 0 ? "New Checklist" : trimmedChecklist
-    );
   }
 
   set completed(completedValue) {
@@ -131,7 +132,7 @@ class Todo {
       throw new Error("Completed value must be a boolean");
     }
 
-    return this.#completed = completedValue;
+    this.#completed = completedValue;
   }
 }
 
