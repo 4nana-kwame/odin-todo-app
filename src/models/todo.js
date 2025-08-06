@@ -125,4 +125,12 @@ class Todo {
       trimmedChecklist.length === 0 ? "New Checklist" : trimmedChecklist
     );
   }
+
+  set completed(completedValue) {
+    if (typeof completedValue !== "boolean") {
+      throw new Error("Completed value must be a boolean");
+    }
+
+    return this.#completed = completedValue;
+  }
 }
