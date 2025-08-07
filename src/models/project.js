@@ -98,4 +98,11 @@ class Project {
       return null;
     }
   }
+
+  getTodoById(todoId) {
+    const todo = this.#todos.find(item => item.id === todoId);
+    if (!todo) return null;
+
+    return todo;
+  }
 }
