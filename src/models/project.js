@@ -120,4 +120,15 @@ class Project {
     todo.name = String(newName);
     return todo;
   }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      name: this.#name,
+      description: this.#description,
+      todos: [...this.#todos],
+      createdAt: this.#createdAt.toISOString(),
+      completed: this.#completed
+    };
+  }
 }
