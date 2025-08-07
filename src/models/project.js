@@ -16,4 +16,16 @@ class Project {
     this.#createdAt = new Date();
     this.completed = completed;
   }
+
+  get id() { return this.#id; }
+
+  get name() { return this.#name; }
+
+  get description() { return this.#description; }
+
+  get todos() { return this.#todos; }
+
+  get createdAt() { return this.#createdAt; }
+
+  get completed() { return this.#completed; }
 }
