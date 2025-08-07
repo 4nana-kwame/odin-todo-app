@@ -5,15 +5,15 @@ class Project {
   #name;
   #description;
   #todos;
-  #createdAt;
   #completed;
+  #createdAt;
 
   constructor (name = "New Project", description = "", todos = [], completed = false) {
     this.#id = crypto.randomUUID();
+    this.#createdAt = new Date();
     this.#name = name;
     this.#description = description;
     this.#todos = todos;
-    this.#createdAt = new Date();
     this.completed = completed;
   }
 
@@ -23,11 +23,11 @@ class Project {
 
   get description() { return this.#description; }
 
-  get todos() { return this.#todos; }
-
-  get createdAt() { return this.#createdAt; }
+  get todos() { return this.#todos.slice(); }
 
   get completed() { return this.#completed; }
+
+  get createdAt() { return this.#createdAt; }
 
   set name(nameValue) {
     const nameString = String(nameValue);
@@ -45,29 +45,17 @@ class Project {
 
   set todos(todosArray) {
     this.#todos = [];
-
+    
     if (Array.isArray(todosArray)) {
       todosArray.forEach(item => {
         if (item instanceof Todo) {
           this.#todos.push(item);
-        } else if (!item && typeof item === "object") {
-          if (
-            (item.title || typeof item.title === "string") &&
-            (item.description || typeof item.description === "string") &&
-            (item.dueDate || item.dueDate instanceof Date) &&
-            (item.priority || typeof item.priority === "string") &&
-            (item.notes || typeof item.notes === "string") &&
-            (item.checklist || Array.isArray(item.checklist)) &&
-            (item.completed || typeof item.completed === "boolean")
-          ) {
-            this.#todos.push(item);
-          }
         } else {
-          throw new Error("Array item must be an instance of Todo");
+          throw new Error("Array items must be Todo instances");
         }
       });
     } else {
-      throw new Error("Todo must be an array");
+      throw new Error("Project expects an array of Todo instances");
     }
   }
 
@@ -80,12 +68,11 @@ class Project {
   }
 
   addTodo(todo) {
-    const todoString = String(todo);
-    const trimmedTodo = todoString.trim();
-
-    this.#todos.push(
-      trimmedTodo.length === 0 ? "New Todo" : trimmedTodo
-    );
+    if (todo instanceof Todo) {
+      return this.#todos.push(todo);
+    } else {
+      throw new Error("addTodo expects a Todo instance");
+    }
   }
 
   removeTodo(todoId) {
@@ -126,22 +113,22 @@ class Project {
       id: this.#id,
       name: this.#name,
       description: this.#description,
-      todos: [...this.#todos],
+      todos: this.#todos.map(item => item.toJSON()),
       createdAt: this.#createdAt.toISOString(),
       completed: this.#completed
     };
   }
 
-  static formJSON(data) {
+  static fromJSON(data) {
     const project = new Project(
       data.name,
       data.description,
-      data.todos || [],
+      data.todos?.map(item => item instanceof Todo ? item : Todo.fromJSON(item)) || [],
       data.completed
     );
 
     project.#id = data.id;
-    project.#createdAt = new Date(this.createdAt);
+    project.#createdAt = new Date(data.createdAt);
 
     return project;
   }
