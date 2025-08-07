@@ -146,3 +146,5 @@ class Project {
     return project;
   }
 }
+
+export { Project };
