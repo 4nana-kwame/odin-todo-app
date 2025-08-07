@@ -42,4 +42,17 @@ class Project {
 
     this.#description = trimmedDescription.length === 0 ? "" : trimmedDescription;
   }
+
+  set todos(todosArray) {
+    this.#todos = [];
+
+    if (Array.isArray(todosArray)) {
+      todosArray.forEach(item => {
+        const stringItem = String(item);
+        const trimmedItem = stringItem.trim();
+
+        this.#todos = trimmedItem.length === 0 ? "New Todo" : trimmedItem;
+      });
+    }
+  }
 }
