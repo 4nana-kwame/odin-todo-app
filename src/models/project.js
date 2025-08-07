@@ -87,4 +87,15 @@ class Project {
       trimmedTodo.length === 0 ? "New Todo" : trimmedTodo
     );
   }
+
+  removeTodo(todoId) {
+    const todoIndex = this.#todos.findIndex(item => item.id === todoId);
+
+    if (todoIndex !== -1) {
+      const removed = this.#todos.splice(todoIndex, 1)[0];
+      return removed;
+    } else {
+      return null;
+    }
+  }
 }
