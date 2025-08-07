@@ -48,10 +48,23 @@ class Project {
 
     if (Array.isArray(todosArray)) {
       todosArray.forEach(item => {
-        const stringItem = String(item);
-        const trimmedItem = stringItem.trim();
-
-        this.#todos = trimmedItem.length === 0 ? "New Todo" : trimmedItem;
+        if (item instanceof Todo) {
+          this.#todos.push(item);
+        } else if (!item && typeof item === "object") {
+          if (
+            (item.title || typeof item.title === "string") &&
+            (item.description || typeof item.description === "string") &&
+            (item.dueDate || item.dueDate instanceof Date) &&
+            (item.priority || typeof item.priority === "string") &&
+            (item.notes || typeof item.notes === "string") &&
+            (item.checklist || Array.isArray(item.checklist)) &&
+            (item.completed || typeof item.completed === "boolean")
+          ) {
+            this.#todos.push(item);
+          }
+        } else {
+          throw new Error("Array item must be an instance of Todo");
+        }
       });
     } else {
       throw new Error("Todo must be an array");
