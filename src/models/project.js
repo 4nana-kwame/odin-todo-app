@@ -65,4 +65,13 @@ class Project {
 
     this.#completed = completedValue;
   }
+
+  addTodo(todo) {
+    const todoString = String(todo);
+    const trimmedTodo = todoString.trim();
+
+    this.#todos.push(
+      trimmedTodo.length === 0 ? "New Todo" : trimmedTodo
+    );
+  }
 }
