@@ -53,6 +53,16 @@ class Project {
 
         this.#todos = trimmedItem.length === 0 ? "New Todo" : trimmedItem;
       });
+    } else {
+      throw new Error("Todo must be an array");
     }
+  }
+
+  set completed(completedValue) {
+    if (typeof completedValue !== "boolean") {
+      throw new Error("Completed value must be a boolean");
+    }
+
+    this.#completed = completedValue;
   }
 }
