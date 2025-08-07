@@ -31,9 +31,15 @@ class Project {
 
   set name(nameValue) {
     const nameString = String(nameValue);
-
     const trimmedName = nameString.trim();
 
     this.#name = trimmedName.length === 0 ? "New Project" : trimmedName;
+  }
+
+  set description(descriptionValue) {
+    const descriptionString = String(descriptionValue);
+    const trimmedDescription = descriptionString.trim();
+
+    this.#description = trimmedDescription.length === 0 ? "" : trimmedDescription;
   }
 }
