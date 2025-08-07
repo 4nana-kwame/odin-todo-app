@@ -112,4 +112,12 @@ class Project {
 
     return todo;
   }
+
+  renameTodo(todoId, newName) {
+    const todo = this.#todos.find(item => item.id === todoId);
+    if (!todo) return null;
+
+    todo.name = String(newName);
+    return todo;
+  }
 }
