@@ -131,4 +131,18 @@ class Project {
       completed: this.#completed
     };
   }
+
+  static formJSON(data) {
+    const project = new Project(
+      data.name,
+      data.description,
+      data.todos || [],
+      data.completed
+    );
+
+    project.#id = data.id;
+    project.#createdAt = new Date(this.createdAt);
+
+    return project;
+  }
 }
