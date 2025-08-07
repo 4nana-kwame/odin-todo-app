@@ -93,11 +93,9 @@ class Todo {
 
     const trimmedPriority = priorityValue.trim().toLowerCase();
 
-    for (let value of allowedValues) {
       if (allowedValues.includes(trimmedPriority)) {
         this.#priority = trimmedPriority;
         return;
-      }
     }
 
     throw new Error("Priority must be low, medium or high");
@@ -140,13 +138,30 @@ class Todo {
       id: this.#id,
       title: this.title,
       description: this.description,
-      dueDate: this.dueDate.toISOString(),
+      dueDate: this.dueDate?.toISOString(),
       priority: this.priority,
       notes: this.notes,
-      checklist: this.checklist.map(item => item.toJSON()),
+      checklist: [...this.checklist],
       completed: this.completed,
       createdAt: this.#createdAt.toISOString()
     };
+  }
+
+  static fromJSON(data) {
+    const todo = new Todo(
+      data.title,
+      data.description,
+      data.dueDate ? new Date(data.dueDate) : undefined,
+      data.priority,
+      data.notes,
+      data.checklist || [],
+      data.completed
+    );
+
+    todo.#id = data.id;
+    todo.#createdAt = new Date(data.createdAt);
+
+    return todo;
   }
 }
 
