@@ -28,4 +28,12 @@ class Project {
   get createdAt() { return this.#createdAt; }
 
   get completed() { return this.#completed; }
+
+  set name(nameValue) {
+    const nameString = String(nameValue);
+
+    const trimmedName = nameString.trim();
+
+    this.#name = trimmedName.length === 0 ? "New Project" : trimmedName;
+  }
 }
