@@ -105,4 +105,11 @@ class Project {
 
     return todo;
   }
+
+  getTodoByName(name) {
+    const todo = this.#todos.find(item => item.name === String(name));
+    if (!todo) return null;
+
+    return todo;
+  }
 }
