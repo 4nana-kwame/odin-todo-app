@@ -21,4 +21,8 @@ class TodoManager {
 
     return this.#todos.get(todoId) || null;
   }
+
+  getAllTodos() {
+    return Array.from(this.#todos.values());
+  }
 }
