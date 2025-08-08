@@ -22,4 +22,8 @@ class ProjectManager {
 
     return project;
   }
+
+  getAllProjects() {
+    return Array.from(this.#projects.values());
+  }
 }
