@@ -72,4 +72,12 @@ class ProjectManager {
     project.addTodo(todo);
     return todo;
   }
+
+  removeTodoFromProject(projectId, todoId) {
+    const project = this.getProjectById(projectId);
+    if (!project) return null;
+    if (typeof todoId !== "string") return null; 
+
+    return project.removeTodo(todoId);
+  }
 }
