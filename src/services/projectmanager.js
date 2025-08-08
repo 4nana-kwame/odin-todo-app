@@ -26,4 +26,29 @@ class ProjectManager {
   getAllProjects() {
     return Array.from(this.#projects.values());
   }
+
+  updateProject(projectId, updateData) {
+    if (!this.#projects.has(projectId)) return null;
+    if (typeof updateData !== "object" || updateData === null) return null;
+
+    const project = this.#projects.get(projectId);
+
+    if (updateData.name !== undefined) {
+      project.name = updateData.name;
+    }
+
+    if (updateData.description !== undefined) {
+      project.description = updateData.description;
+    }
+
+    if (updateData.todos !== undefined) {
+      project.todos = updateData.todos;
+    }
+
+    if (updateData.completed !== undefined) {
+      project.completed = updateData.completed;
+    }
+
+    return project;
+  }
 }
