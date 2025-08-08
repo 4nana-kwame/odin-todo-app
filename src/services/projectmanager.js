@@ -15,4 +15,11 @@ class ProjectManager {
     this.#projects.set(project.id, project);
     return project;
   }
+
+  getProjectById(projectId) {
+    const project = this.#projects.get(projectId);
+    if (!project) return null;
+
+    return project;
+  }
 }
