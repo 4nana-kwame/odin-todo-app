@@ -61,3 +61,5 @@ class TodoManager {
     return this.#todos.delete(todoId);
   }
 }
+
+export { TodoManager };
