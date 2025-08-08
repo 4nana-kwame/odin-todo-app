@@ -95,7 +95,7 @@ class Todo {
     this.#completed = completedValue;
   }
 
-  toggleCompleted() {
+  toggleTodoCompleted() {
     return this.#completed = !this.#completed;
   }
 

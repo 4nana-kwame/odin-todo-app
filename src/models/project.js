@@ -6,11 +6,9 @@ class Project {
   #description;
   #todos;
   #completed;
-  #createdAt;
 
   constructor (name = "New Project", description = "", todos = [], completed = false) {
     this.#id = crypto.randomUUID();
-    this.#createdAt = new Date();
     this.#name = name;
     this.#description = description;
     this.#todos = todos;
@@ -27,20 +25,24 @@ class Project {
 
   get completed() { return this.#completed; }
 
-  get createdAt() { return this.#createdAt; }
-
   set name(nameValue) {
-    const nameString = String(nameValue);
-    const trimmedName = nameString.trim();
+    if (typeof nameValue !== "string") {
+      throw new Error("Project name must be a string");
+    }
 
-    this.#name = trimmedName.length === 0 ? "New Project" : trimmedName;
+    const trimmed = nameValue.trim();
+
+    this.#name = trimmed.length === 0 ? "New Project" : trimmed;
   }
 
   set description(descriptionValue) {
-    const descriptionString = String(descriptionValue);
-    const trimmedDescription = descriptionString.trim();
+    if (typeof descriptionValue !== "string") {
+      throw new Error("Description must be a string");
+    }
 
-    this.#description = trimmedDescription.length === 0 ? "" : trimmedDescription;
+    const trimmed = descriptionValue.trim();
+
+    this.#description = trimmed.length === 0 ? "" : trimmed;
   }
 
   set todos(todosArray) {
@@ -61,7 +63,7 @@ class Project {
 
   set completed(completedValue) {
     if (typeof completedValue !== "boolean") {
-      throw new Error("Completed value must be a boolean");
+      throw new Error("Completed must be a boolean");
     }
 
     this.#completed = completedValue;
@@ -94,7 +96,12 @@ class Project {
   }
 
   getTodoByName(name) {
-    const todo = this.#todos.find(item => item.name === String(name));
+    if (typeof name !== "string") {
+      throw new Error("Name must be a string");
+    }
+
+    const trimmed = name.trim();
+    const todo = this.#todos.find(item => item.name === trimmed);
     if (!todo) return null;
 
     return todo;
@@ -104,8 +111,18 @@ class Project {
     const todo = this.#todos.find(item => item.id === todoId);
     if (!todo) return null;
 
-    todo.name = String(newName);
+    if (typeof newName !== "string") {
+      throw new Error("Name must be a string");
+    }
+
+    const trimmed = newName.trim();
+    todo.name = trimmed;
+    
     return todo;
+  }
+
+  toggleProjectCompleted() {
+    return this.#completed = !this.#completed;
   }
 
   toJSON() {
@@ -114,7 +131,6 @@ class Project {
       name: this.#name,
       description: this.#description,
       todos: this.#todos.map(item => item.toJSON()),
-      createdAt: this.#createdAt.toISOString(),
       completed: this.#completed
     };
   }
@@ -128,7 +144,6 @@ class Project {
     );
 
     project.#id = data.id;
-    project.#createdAt = new Date(data.createdAt);
 
     return project;
   }
