@@ -11,7 +11,7 @@ class Todo {
     description = "",
     dueDate,
     priority = "low",
-    completed = false,
+    completed = false
   ) {
     this.#id = crypto.randomUUID();
     this.title = title;
