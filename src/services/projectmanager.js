@@ -1,5 +1,5 @@
 import { Project } from "../models/project.js";
-import { TodoManager } from "./todomanager.js";
+import { Todo } from "../models/todo.js";
 
 class ProjectManager {
   #projects = new Map();
@@ -56,5 +56,20 @@ class ProjectManager {
     if (typeof projectId !== "string") return false;
 
     return this.#projects.delete(projectId);
+  }
+
+  addTodoToProject(projectId, todoData) {
+    const project = this.getProjectById(projectId);
+    if (!project) return null;
+
+    const todo = new Todo(
+      todoData.title,
+      todoData.description,
+      todoData.dueDate,
+      todoData.priority
+    );
+
+    project.addTodo(todo);
+    return todo;
   }
 }
