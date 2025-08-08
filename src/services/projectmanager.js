@@ -80,4 +80,11 @@ class ProjectManager {
 
     return project.removeTodo(todoId);
   }
+
+  getProjectTodos(projectId) {
+    const project = this.getProjectById(projectId);
+    if (!project) return [];
+
+    return [...project.todos];
+  }
 }
