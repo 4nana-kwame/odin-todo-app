@@ -54,4 +54,10 @@ class TodoManager {
 
     return todo;
   }
+
+  deleteTodo(todoId) {
+    if (typeof todoId !== "string") return false;
+
+    return this.#todos.delete(todoId);
+  }
 }
