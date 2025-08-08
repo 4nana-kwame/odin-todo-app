@@ -51,4 +51,10 @@ class ProjectManager {
 
     return project;
   }
+
+  deleteProject(projectId) {
+    if (typeof projectId !== "string") return false;
+
+    return this.#projects.delete(projectId);
+  }
 }
