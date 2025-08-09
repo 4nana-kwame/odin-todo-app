@@ -101,7 +101,9 @@ class ProjectManager {
       Project.fromJSON(projectData)
       );
     });
-    
+
     return manager;
   }
 }
+
+export { ProjectManager };
