@@ -87,4 +87,21 @@ class ProjectManager {
 
     return [...project.todos];
   }
+
+  toJSON() {
+    return Array.from(this.#projects.values()).map(project => project.toJSON());
+  }
+
+  static fromJSON(data) {
+    const manager = new ProjectManager();
+
+    data?.forEach(projectData => {
+      manager.#projects.set(
+      projectData.id, 
+      Project.fromJSON(projectData)
+      );
+    });
+    
+    return manager;
+  }
 }
