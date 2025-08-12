@@ -7,4 +7,10 @@ class ProjectList {
   constructor (projectManager) {
     this.#projectManager = projectManager;
   }
+
+  render() {}
+
+  setActivateProject() {}
+
+  bindEvents() {}
 }
