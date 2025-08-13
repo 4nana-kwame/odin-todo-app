@@ -1,4 +1,4 @@
-import { ProjectManager } from "../src/services/projectmanager.js";
+import { ProjectManager } from "../services/projectmanager.js";
 
 class ProjectList {
   #projectManager;
