@@ -8,4 +8,8 @@ class Todo {
     this.dueDate = dueDate;
     this.priority = priority;
   }
+
+  toggleCompleted() {
+    return this.completed = !this.completed;
+  }
 }
