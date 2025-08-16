@@ -23,4 +23,8 @@ class Project {
 
     return null;
   }
+
+  getTodoById(todoId) {
+    return this.todos.find(todo => todo.id === todoId);
+  }
 }
