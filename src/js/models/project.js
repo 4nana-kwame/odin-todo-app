@@ -6,4 +6,10 @@ class Project {
     this.name = name || "Untitled Project";
     this.todos = [];
   }
+
+  addTodo(todoData) {
+    const todo = new Todo(...todoData);
+    this.todos.push(todo);
+    return todo;
+  }
 }
