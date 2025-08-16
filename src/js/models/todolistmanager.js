@@ -8,6 +8,8 @@ class TodoListManager {
 
   addProject(name) {
     const project = new Project(name);
+    this.projects.push(project);
+
     return project;
   }
 }
