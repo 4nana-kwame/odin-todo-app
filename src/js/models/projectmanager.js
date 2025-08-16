@@ -1,6 +1,6 @@
 import { Project } from "./project.js";
 
-class TodoListManager {
+class ProjectManager {
   constructor () {
     this.projects = [];
     this.currentProjectId = null;
@@ -9,6 +9,13 @@ class TodoListManager {
   addProject(name) {
     const project = new Project(name);
     this.projects.push(project);
+
+    return project;
+  }
+
+  getProject(projectId) {
+    const project = this.projects.find(item => item.id === projectId);
+    if (!project) return null;
 
     return project;
   }
