@@ -23,3 +23,5 @@ class Todo {
     this.priority = allowed.includes(newPriority) ? newPriority : this.priority;
   }
 }
+
+export { Todo };
