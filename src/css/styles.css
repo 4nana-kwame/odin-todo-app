@@ -230,6 +230,7 @@ label {
 .priority-high {
   color: var(--priority-high);
   background: rgba(239, 68, 68, 0.1);
+  font-weight: 600;
 }
 
 .priority-medium {
@@ -266,8 +267,4 @@ label {
 
 .delete {
   background: var(--error-red);
-}
-
-.completed {
-  color: var(--text-muted);
 }
